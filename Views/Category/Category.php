@@ -10,11 +10,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Category</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
 
     <body>
-        <a href="category_add.php">Add category</a>
+        <a href="AddCategory.php">Add category</a>
         <div>
             <?php
             if (!empty($categories)) {
@@ -36,8 +37,8 @@
                             <td><?= $category['category_name'] ?></td>
                             <td><?= $category['category_descriptions'] ?></td>
                             <td>
-                                <a href="#" class="edit-link" data-id="<?php echo $category["category_id"]; ?>">Edit</a> |
-                                <a href="#" class="delete-link" data-id="<?php echo $category["category_id"]; ?>">Delete</a>
+                            <a href="AddCategory.php?id=<?=$category['category_id'];?>" class="edit-link">Edit</a> |
+                                <a href="#" class="delete-link" data-id="<?= $category['category_id']; ?>">Delete</a>
                             </td>
                         </tr>
                     <?php } ?>
@@ -46,6 +47,7 @@
                 echo '<p style="color:red">No Data Found</p>';
             } ?>
         </div>
+        <script src="../../Assets/JS/DeleteCategory.js"></script>
     </body>
 
     </html>

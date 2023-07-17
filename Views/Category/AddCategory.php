@@ -32,11 +32,8 @@ if(isset($_POST) && !empty($_POST)){
 
     if($id == ''){
         addCategory($name, $image, $description);
-    }else{
-       updateCategory($id, $name, $image, $description);
     }
-
-    header("Location: category.php");
+    header("Location: Category.php");
 }
 
 
@@ -53,13 +50,18 @@ if(isset($_POST) && !empty($_POST)){
     <h1>Create New Category</h1>
     <form action="" method="POST" enctype="multipart/form-data">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="name" name="name" value="<?=$name?>" required>
         <br>
         <label for="image">Category Image:</label>
         <input type="file" id="image" name="image" accept="image/*" required>
+        <?php
+        if($image != ''){
+            echo '<img src="../../Assets/<?= $category["category_image"] ?>" width="100px" height="100px">';
+        }
+        ?>
         <br>
         <label for="description">Description:</label>
-        <textarea id="description" name="description" required></textarea>
+        <textarea id="description" name="description"  value="<?=$description?>" required></textarea>
         <br>
         <input type="submit" value="Create Category">
     </form>
