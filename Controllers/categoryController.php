@@ -22,7 +22,18 @@ function updateCategory($id, $name, $image, $description) {
 }
 
 function deleteCategory($id) {
-    $sql = "DELETE FROM category WHERE category_id = $id";
-    return execute($sql);
-}
+    $category = getCategoriesByID($id);
+
+    if($category && !empty($category)){
+        $imagePath = "../../Assets/".$category['category_image'];
+        if(file_exists($imagePath) && is_file($imagePath)){
+            unlink ($imagePath);
+        }
+        $sql = "DELETE FROM category WHERE category_id = $id";
+        return execute($sql);
+    }else{
+        return false;
+    }
+    }
+   
 ?>
