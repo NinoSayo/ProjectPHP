@@ -1,5 +1,5 @@
 <?php
-require_once("../../Controllers/productImageController.php");
+require_once("../../Controllers/product.php");
 function UploadImage($uploadedImage,$product_id){
     $files = array();
     $errors = array();
@@ -19,7 +19,7 @@ function UploadImage($uploadedImage,$product_id){
         if($file != false){
             move_uploaded_file($file['tmp_nam'],$uploadPath.'/'.$file['name']);
             $image = 'image/product/'.$file['name'].'';
-            addImageProduct('.$product_name.',"'.$image_name.'", $product_id);
+            addImageProduct('.$product_name.',"'.$  .'", $product_id);
         }
     }
 
