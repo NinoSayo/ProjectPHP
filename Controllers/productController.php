@@ -21,4 +21,10 @@ function updateProduct($id,$name,$quantity,$price,$description,$category_id){
     return execute($sql);
 }
 
+function deleteProduct($id){
+    $product = getProductsByID($id);
+
+    
+}
+
 ?>

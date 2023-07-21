@@ -4,6 +4,14 @@ require_once("../../Controllers/categoryController.php");
 
 $products = getProducts();
 $categories = getCategories();
+
+function limitDescription($description,$maxLength){
+    if(strlen($description) > $maxLength){
+        $description = substr($description,0,$maxLength). '...';
+    }
+    return $description;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +32,7 @@ $categories = getCategories();
                 <th>Name</th>
                 <th>Quantity</th>
                 <th>Price</th>
+                <th>Descriptions:</th>
                 <th>Category</th>
                 <th>Action</th>
             </tr>
@@ -37,6 +46,7 @@ $categories = getCategories();
                 <td><?=$product['product_name']?></td>
                 <td><?=$product['product_quantity']?></td>
                 <td><?=$product['product_price']?></td>
+                <td><?=limitDescription($product['product_descriptions'],20)?></td>
                 <td>
                     <?php 
                     foreach($categories as $category){
@@ -48,7 +58,7 @@ $categories = getCategories();
                     ?>
                 </td>
                 <td>
-                <a href="AddProduct.php?id=<?=$product['product_id'];?>" class="edit-link">Edit</a> |
+                <a href="EditProduct.php?id=<?=$product['product_id'];?>" class="edit-link">Edit</a> |
                 <a href="#" class="delete-link" data-id="<?= $product['product_id']; ?>">Delete</a>
                 </td>
             </tr>
