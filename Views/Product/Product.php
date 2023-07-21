@@ -19,6 +19,7 @@ function limitDescription($description,$maxLength){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <a href="AddProduct.php">Add Product</a>
@@ -58,9 +59,9 @@ function limitDescription($description,$maxLength){
                     ?>
                 </td>
                 <td>
-                <a href="EditProduct.php?id=<?=$product['product_id'];?>" class="edit-link">Edit</a> |
-                <a href="#" class="delete-link" data-id="<?= $product['product_id']; ?>">Delete</a>
-                </td>
+    <a href="EditProduct.php?id=<?=$product['product_id'];?>" class="edit-link">Edit</a> |
+    <a href="#" class="delete-link" data-id="<?= $product['product_id']; ?>">Delete</a>
+</td>
             </tr>
             <?php 
             }

@@ -21,10 +21,21 @@ function updateProduct($id,$name,$quantity,$price,$description,$category_id){
     return execute($sql);
 }
 
-function deleteProduct($id){
+function deleteProduct($id) {
     $product = getProductsByID($id);
 
-    
+    if($product && !empty($product)){
+        // Assuming there's a product_image field in the product table
+        $imagePath = "../../Assets/".$product['product_image'];
+        if(file_exists($imagePath) && is_file($imagePath)){
+            unlink ($imagePath);
+        }
+
+        $sql = "DELETE FROM product WHERE product_id = $id";
+        return execute($sql);
+    } else {
+        return false;
+    }
 }
 
 ?>

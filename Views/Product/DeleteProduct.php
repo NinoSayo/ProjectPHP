@@ -1,13 +1,16 @@
 <?php
 require_once("../../Controllers/productController.php");
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    if(isset($_POST['id'])){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['id'])) {
         $productID = $_POST['id'];
         $result = deleteProduct($productID);
 
-        if($result){
+        if ($result) {
             $response = array('status' => 'success');
+            echo json_encode($response);
+        } else {
+            $response = array('status' => 'error');
             echo json_encode($response);
         }
     }
