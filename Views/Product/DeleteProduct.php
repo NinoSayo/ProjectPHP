@@ -1,20 +1,21 @@
-<?php
-require_once("../../Controllers/productController.php");
+    <?php
+    require_once("../../Controllers/productController.php");
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_GET['id'])) {
-        $productID = $_GET['id'];
+    if (isset($_POST['id'])) {
+        $productID = $_POST['id'];
+
+        // Delete product images first
+        $errors = deleteImages($productID);
+
+        // Delete the product itself
         $result = deleteProduct($productID);
 
-        if ($result) {
-            // Product deleted successfully
+        if ($result && empty($errors)) {
+            // Product and images deleted successfully
             echo json_encode(array('status' => 'success'));
-            exit();
         } else {
-            // An error occurred while deleting the product
-            echo json_encode(array('status' => 'error'));
-            exit();
+            // An error occurred while deleting the product or images
+            echo json_encode(array('status' => 'error', 'errors' => $errors));
         }
     }
-}
-?>
+    ?>

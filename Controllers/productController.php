@@ -2,43 +2,35 @@
 require_once("../../Database/Connect.php");
 
 function getProducts(){
-    $sql = "SELECT p.* , pi.image_id , pi.image_source FROM product p LEFT JOIN product_image pi on p.product_id = pi.product_id";
+    $sql = "SELECT * FROM product";
     return executeResult($sql);
 }
 
 function getProductsByID($id) {
-    $sql = "SELECT p.*,pi.image_id , pi.image_source FROM product p LEFT JOIN product_image pi on p.product_id = pi.product_id WHERE p.product_id = $id";
+    $sql = "SELECT * FROM product WHERE product_id = $id";
     return executeSingleResult($sql);
 }
 
-function addProduct($name,$quantity,$price,$description,$category_id){
-    $sql = "INSERT INTO product (product_name,product_quantity,product_price,product_descriptions,category_id) VALUES ('$name',$quantity,$price,'$description',$category_id)";
-    $productID = execute($sql);
-
-    if($productID){
-        if(isset($_FILES['image'])){
-            UploadImages($_FILES,$productID);
-        }
-    }
-    return $productID;
+function getImagesByID($id){
+    $sql = "SELECT * FROM product_image WHERE product_id = $id";
+    return executeResult($sql);
 }
 
-function updateProduct($id,$name,$quantity,$price,$description,$category_id){
-    $sql = "UPDATE product SET product_name = '$name',product_quantity = $quantity,product_price = $price,product_descriptions = '$description',category_id = $category_id WHERE product_id = $id";
-    execute($sql);
-
-    if(isset($_FILES['image'])){
-        $sql = "DELETE FROM product_image WHERE product_id = $id";
-        execute($sql);
-        UploadImages($_FILES['image'],$id);
-    }
+function addProduct($name,$quantity,$price,$desscripton,$cateID){
+    $sql = "INSERT INTO product(product_name,product_quantity,product_price,product_descriptions,category_id) VALUES ('$name',$quantity,$price,'$desscripton',$cateID)";
+    return execute($sql);
 }
 
-function UploadImages($uploadImages,$productID){
+function updateProduct($id,$name,$quantity,$price,$desscripton,$cateID){
+    $sql = "UPDATE product set product_name = '$name',product_quantity = $quantity , product_price = $price ,product_descriptions = '$desscripton',category_id = $cateID WHERE product_id = $id ";
+    return execute($sql);
+}
+
+function uploadImages($uploadImages,$product_id){
     $files = array();
     $errors = array();
 
-    foreach($uploadImages as $key => $values){
+    foreach ($uploadImages as $key => $values){
         foreach($values as $index => $value){
             $files[$index][$key] = $value;
         }
@@ -51,57 +43,80 @@ function UploadImages($uploadImages,$productID){
     foreach($files as $file){
         $file = validateUploadFile($file,$uploadPath);
         if($file != false){
-            move_uploaded_file($file['tmp_name'],$uploadPath . '/' . $file['name']);
-            $image = 'Images/product/' .$file['name'].'';
-            $sql = "INSERT INTO product_image (image_source, product_id) VALUES ('$image', $productID)";
+            move_uploaded_file($file['tmp_name'],$uploadPath.'/'.$file['name']);
+
+            $image = '../../Assets/'.$file['name'].'';
+            $sql = 'INSERT INTO product_image(image_source,product_id) VALUES ("'.$image.'",'.$product_id.')';
             execute($sql);
         }else{
-            $errors[] = "The file".basename($file['name'])."Isn't valid";
+            $errors[] = "The file".basename($file["name"])."isn't valid";
         }
     }
-return $errors;
+    return $errors;
 }
 
 function validateUploadFile($file,$uploadPath){
-    if($file['size'] > 2*1024*1024){ //max upload là 2mb
+    if($file['size'] > 2*1024*1024){
         return false;
     }
 
     $validTypes = array("jpg","jpeg","png","bmp");
-    $fileTypes = substr($file['name'],strrpos($file['name'],".") + 1);
-    if(!in_array($fileTypes,$validTypes)){
+    $fileType = substr($file['name'],strrpos($file['name'],".")+1);
+    if(!in_array($fileType,$validTypes)){
         return false;
     }
 
     $num = 1;
-    $fileNamecheck = substr($file['name'],0,strrpos($file['name'],"."));
-    $filename = $fileNamecheck;
-    while(file_exists($uploadPath.'/'.$filename.".".$fileTypes)){
-        $filename = $fileNamecheck . "(".$num.")";
+    $fileNameCheck = substr($file['name'],0,strrpos($file['name'],"."));
+    $fileName = $fileNameCheck;
+    while(file_exists($uploadPath.'/'.$fileName.".".$fileType)){
+        $fileName = $fileNameCheck . "(".$num.")";
         $num++;
     }
-    $file['name'] = $filename.'.'.$fileTypes;
+    $file['name'] = $fileName.'.'.$fileType;
     return $file;
 }
 
-function deleteProduct($id) {
-    $product = getProductsByID($id);
+function deleteImages($id) {
+    $images = getImagesByID($id);
 
-    if($product && !empty($product)){
-        // Assuming there's a product_image field in the product table
-        $imagePath = "../../Assets/".$product['image_source'];
-        if(file_exists($imagePath) && is_file($imagePath)){
-            unlink ($imagePath);
-        }   
+    $errors = array();
 
-        $sql = "DELETE FROM product_image WHERE product_id = $id";
-        execute($sql);
+    foreach ($images as $image) {
+        $path = '../../Assets/' . $image['image'];
 
-        $sql = "DELETE FROM product WHERE product_id = $id";
-        return execute($sql);
-    } else {
-        return false;
+        if (file_exists($path)) {
+            unlink($path);
+        } else {
+            $errors[] = "Image not found: " . $image['image'];
+        }
+
+        $image_id = $image['image_id']; 
+        $sql = "DELETE FROM product_image WHERE product_id = $id AND image_id = $image_id";
+        $result = execute($sql);
+
+        if (!$result) {
+            $errors[] = "Something went wrong while deleting image with image_id: $image_id";
+        }
     }
+    return $errors;
+}
+
+
+function deleteProduct($id) {
+    $errors = deleteImages($id);
+
+    $sql = "DELETE FROM product WHERE product_id = $id";
+    $result = execute($sql);
+
+    if ($result && empty($errors)) {
+        // Product and images deleted successfully
+        echo json_encode(array('status' => 'success'));
+    } else {
+        // An error occurred while deleting the product or images
+        echo json_encode(array('status' => 'error', 'errors' => $errors));
+    }
+
 }
 
 ?>

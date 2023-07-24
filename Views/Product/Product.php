@@ -13,6 +13,7 @@ function limitDescription($description, $maxLength)
     return $description;
 }
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +64,7 @@ function limitDescription($description, $maxLength)
                         </td>
                         <td>
                             <a href="EditProduct.php?id=<?= $product['product_id']; ?>" >Edit</a> |
-                        <a href="" class="delete-product" data-id="<?=$product['product_id'];?>">Delete</a>
+                            <a href="#" onclick="deleteProduct(<?=$product['product_id']?>)">Delete</a>
                         </td>
                     </tr>
                 <?php
@@ -76,7 +77,19 @@ function limitDescription($description, $maxLength)
         }
         ?>
     </div>
-    <script src="../../Assets/JS/DeleteProduct.js"></script>
 </body>
-
+<script>
+    function deleteProduct(id){
+    var option = confirm("do you want to delete?" + id);
+    if(!option){
+        return;
+    }
+    //ajax
+    $.post('../../Views/product/DeleteProduct.php',{
+        'id' : id 
+    }, function(data){
+        location.reload();
+    })
+}
+</script>
 </html>

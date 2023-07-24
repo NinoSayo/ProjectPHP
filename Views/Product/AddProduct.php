@@ -2,7 +2,7 @@
 require_once("../../Controllers/productController.php");
 require_once("../../Controllers/categoryController.php");
 
-$name = $quantity = $price = $description = $category_id = '';
+$name = $quantity = $price = $description = $cateID = '';
 
 $categories = getCategories();
 
@@ -20,18 +20,18 @@ if(isset($_POST) && !empty($_POST)){
         $description = $_POST['description'];
     }
     if(isset($_POST['category_id'])){
-        $category_id = $_POST['category_id'];
+        $cateID = $_POST['category_id'];
     }
 
-    if(isset($_FILES['image'])){
-        $productID = addProduct($name,$quantity,$price,$description,$category_id);
-        if($productID){
-            UploadImages($_FILES['image'],$productID);
-        }
+    addProduct($name,$quantity,$price,$description,$cateID);
+    
+    if($_FILES['image']){
+        $sql = "SELECT max(product_id) as new_product_id from product";
+        $new_product_id = executeSingleResult($sql)['new_product_id'];
+        uploadImages($_FILES['image'],$new_product_id);
     }
-
-    header("Location: Product.php");
-}
+    header('Location: Product.php');
+}    
 ?>
 
 <!DOCTYPE html>
