@@ -1,17 +1,19 @@
 <?php
 require_once("../../Controllers/productController.php");
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['id'])) {
-        $productID = $_POST['id'];
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_GET['id'])) {
+        $productID = $_GET['id'];
         $result = deleteProduct($productID);
 
         if ($result) {
-            $response = array('status' => 'success');
-            echo json_encode($response);
+            // Product deleted successfully
+            echo json_encode(array('status' => 'success'));
+            exit();
         } else {
-            $response = array('status' => 'error');
-            echo json_encode($response);
+            // An error occurred while deleting the product
+            echo json_encode(array('status' => 'error'));
+            exit();
         }
     }
 }

@@ -1,11 +1,11 @@
 $(document).ready(function () {
-    $('.delete-link').click(function (e) {
+    $('.delete-product').click(function (e) {
         e.preventDefault();
         var productID = $(this).data('id');
         if (confirm("Are you sure you want to delete this product?")) {
             $.ajax({
                 url: 'DeleteProduct.php',
-                type: 'POST',
+                type: 'GET',
                 data: {
                     id: productID
                 },
@@ -13,15 +13,18 @@ $(document).ready(function () {
                     try {
                         var jsonData = JSON.parse(response);
                         if (jsonData.status === 'success') {
+                            // Product deleted successfully
                             alert('Product deleted successfully.');
                             $('#row-' + productID).remove();
+                            // Optionally, you can reload the page after deletion
                             location.reload();
-                        } else {
-                            alert('An error occurred while deleting the product.');
+                        }else{
+                            alert('An error occured while deleting product');
                         }
-                    } catch (error) {
-                        alert('An error occurred while parsing the response.');
+                    }catch (error){
+                        alert('An error occured while parsing the response');
                     }
+                  
                 },
                 error: function () {
                     alert('An error occurred while deleting the product.');

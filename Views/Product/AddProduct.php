@@ -23,7 +23,13 @@ if(isset($_POST) && !empty($_POST)){
         $category_id = $_POST['category_id'];
     }
 
-    addProduct($name, $quantity, $price, $description, $category_id);
+    if(isset($_FILES['image'])){
+        $productID = addProduct($name,$quantity,$price,$description,$category_id);
+        if($productID){
+            UploadImages($_FILES['image'],$productID);
+        }
+    }
+
     header("Location: Product.php");
 }
 ?>
@@ -57,6 +63,8 @@ if(isset($_POST) && !empty($_POST)){
             ?>
         </select>
         <br>
+        <label for="image">Images:</label>
+        <input type="file" name="image[]" multiple id="">
         <input type="submit" value="Add">
     </form>
 </body>
