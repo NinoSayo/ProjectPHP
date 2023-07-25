@@ -17,11 +17,10 @@ $(document).ready(function () {
                             alert('Category deleted successfully.');
                             $('#row-' + categoryID).remove();
                             location.reload();
-                            
-                        } else if (jsonData.status === null) {
+                        } else if (jsonData.status === "error_product") {
                             alert('Cannot delete category. It is associated with one or more products.');
                         } else {
-                            
+                            alert("123");
                         }
                     } catch (error) {
                         alert('An error occurred while parsing the response.');
