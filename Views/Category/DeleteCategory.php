@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $response = array('status' => 'success');
             echo json_encode($response);
         } else {
-            $response = array('status' => 'error');
+            $response = array('status' => 'error_product');
             echo json_encode($response);
         }
     }

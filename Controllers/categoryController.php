@@ -22,6 +22,12 @@ function updateCategory($id, $name, $image, $description) {
 }
 
 function deleteCategory($id) {
+    $sql = "SELECT COUNT(*) as product_count FROM product WHERE category_id = $id";
+    $result = executeSingleResult($sql);
+    
+    if($result && $result['product_count'] > 0){
+        return false;
+    }
     $category = getCategoriesByID($id);
 
     if($category && !empty($category)){

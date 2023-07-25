@@ -12,12 +12,16 @@ $(document).ready(function () {
                 success: function (response) {
                     try {
                         var jsonData = JSON.parse(response);
+                       
                         if (jsonData.status === 'success') {
                             alert('Category deleted successfully.');
                             $('#row-' + categoryID).remove();
                             location.reload();
+                            
+                        } else if (jsonData.status === null) {
+                            alert('Cannot delete category. It is associated with one or more products.');
                         } else {
-                            alert('An error occurred while deleting the category.');
+                            
                         }
                     } catch (error) {
                         alert('An error occurred while parsing the response.');
