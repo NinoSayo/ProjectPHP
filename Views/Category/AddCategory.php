@@ -39,6 +39,7 @@ $id = $name = $description = $image = '';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <form action="" method = "POST" enctype="multipart/form-data">
@@ -46,10 +47,12 @@ $id = $name = $description = $image = '';
         <input type="text" name="name" value="<?=$name?>" required>
         <br>
         <label for="image">Category Image:</label>
-        <input type="file" name="image" id="input-image">
+        <input type="file" name="image" id="input-image"><br>
         <?php
         if($image != ''){
-            echo '<img src="../../Assets/'.$image.'" width="100px" height="100px">';
+            echo '<img src="../../Assets/'.$image.'" width="100px" height="100px" id="image-preview">';
+        } else {
+            echo '<img src="" width="100px" height="100px" id="image-preview" style="display: none;">';
         }
         ?>
         <br>
@@ -58,5 +61,6 @@ $id = $name = $description = $image = '';
         <br>
         <input type="submit" value="Submit">
     </form>
+    <script src="../../Assets/JS/PreviewImages.js"></script>
 </body>
 </html>

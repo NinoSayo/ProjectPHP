@@ -40,6 +40,7 @@ if(isset($_POST) && !empty($_POST)){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <h1>Add Product</h1>
@@ -51,7 +52,7 @@ if(isset($_POST) && !empty($_POST)){
         <input type="number" name="quantity" value="<?=$quantity?>">
         <br>
         <label for="price">Price:</label>
-        <input type="number" name="price" value="<?=$price?>">
+        <input type="number" name="price" value="<?=$price?>"><br>
         <label for="description">Description:</label>
         <textarea name="description" id="" cols="30" rows="10"><?=$description?></textarea>
         <br>
@@ -64,8 +65,10 @@ if(isset($_POST) && !empty($_POST)){
         </select>
         <br>
         <label for="image">Images:</label>
-        <input type="file" name="image[]" multiple id="">
+        <input type="file" name="image[]" multiple id="input-image"> <br>
+        <img id="image-preview" src="" width="100" height="100" style="display: none;"><br>
         <input type="submit" value="Add">
     </form>
+    <script src="../../Assets/JS/PreviewImages.js"></script>
 </body>
 </html>

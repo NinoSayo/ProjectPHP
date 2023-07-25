@@ -46,7 +46,7 @@ function limitDescription($description, $maxLength)
                 ?>
                     <tr>
                         <td>
-                            <!-- <img src="../../Assets/<?= $product['product_image'] ?>" width="100px" height="100px"> -->
+                            <img src="../../Assets/<?= $product['image_source'] ?>" width="100px" height="100px">
                         </td>
                         <td><?= $product['product_name'] ?></td>
                         <td><?= $product['product_quantity'] ?></td>

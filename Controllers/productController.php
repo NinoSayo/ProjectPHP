@@ -2,14 +2,22 @@
 require_once("../../Database/Connect.php");
 
 function getProducts(){
-    $sql = "SELECT * FROM product";
+    $sql = "SELECT p.*, pi.image_source 
+            FROM product p 
+            INNER JOIN product_image pi ON p.product_id = pi.product_id";
     return executeResult($sql);
 }
 
+
 function getProductsByID($id) {
-    $sql = "SELECT * FROM product WHERE product_id = $id";
+    $sql = "SELECT p.*, pi.image_source
+            FROM product p
+            INNER JOIN product_image pi ON p.product_id = pi.product_id
+            WHERE p.product_id = $id";
+
     return executeSingleResult($sql);
 }
+
 
 function getImagesByID($id){
     $sql = "SELECT * FROM product_image WHERE product_id = $id";
@@ -35,7 +43,7 @@ function uploadImages($uploadImages,$product_id){
             $files[$index][$key] = $value;
         }
     }
-    $uploadPath = "../../Assets/Images/product";
+    $uploadPath = "../../Assets/Images/product/";
     if(!is_dir($uploadPath)){
         mkdir($uploadPath);
     }
@@ -45,7 +53,7 @@ function uploadImages($uploadImages,$product_id){
         if($file != false){
             move_uploaded_file($file['tmp_name'],$uploadPath.'/'.$file['name']);
 
-            $image = '../../Assets/'.$file['name'].'';
+            $image = 'Images/product/'.$file['name'].'';
             $sql = 'INSERT INTO product_image(image_source,product_id) VALUES ("'.$image.'",'.$product_id.')';
             execute($sql);
         }else{
@@ -75,6 +83,31 @@ function validateUploadFile($file,$uploadPath){
     }
     $file['name'] = $fileName.'.'.$fileType;
     return $file;
+}
+
+function updateImage($id,$name,$quantity,$price,$description,$cateID,$uploadImages){
+    updateProduct($id,$name,$quantity,$price,$description,$cateID);
+    if(!empty($uploadImages)){
+        $uploadPath = "../../Assets/Images/product/";
+        if(!is_dir($uploadPath)){
+            mkdir($uploadPath);
+        }
+
+        if($uploadImages['name'][0] != ""){
+            $sql = "DELETE FROM product_image WHERE product_id = $id";
+            execute($sql);
+
+            foreach($uploadImages['tmp_name'] as $index => $tmp_name){
+                $fileName = $uploadImages['name'][$index];
+                $targetFilePath = $uploadPath . $fileName;
+                move_uploaded_file($tmp_name,$targetFilePath);
+                $image_source = "Images/product/".$fileName;
+                $sql = "INSERT INTO product_image(image_source,product_id) VALUES ('$image_source',$id)";
+                execute($sql);
+            }
+        }
+    }
+
 }
 
 function deleteImages($id) {
