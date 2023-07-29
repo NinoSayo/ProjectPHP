@@ -1,5 +1,4 @@
 <?php
-
 include("../Database/Connect.php");
 
 function getAll($table)
@@ -108,4 +107,3 @@ function getCategoryName($category_id) {
         return "Uncategorized";
     }
 }
-?>
