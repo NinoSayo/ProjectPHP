@@ -6,11 +6,13 @@ include("../Functions/myFunction.php");
 if (isset($_POST['add_category'])) {
     $name = $_POST['name'];
     $description = $_POST['description'];
+    $status = isset($_POST['status']) ? '1' : '0';
+    $slug = $_POST['slug'];
 
     $image = "Images/category/" . basename($_FILES['image']['name']);
     $imagePath = "../Assets/Images/category/" . basename($_FILES['image']['name']);
 
-    $sql1 = "INSERT INTO category(category_name,category_image,category_descriptions) VALUES ('$name','$image','$description')";
+    $sql1 = "INSERT INTO category(category_name,category_slug,category_image,category_descriptions,category_status) VALUES ('$name','$slug','$image','$description','$status')";
 
     $addCategory = mysqli_query($con, $sql1);
 
@@ -23,34 +25,48 @@ if (isset($_POST['add_category'])) {
 } else if (isset($_POST['update_category'])) {
     $category_id = $_POST['category_id'];
     $name = $_POST['name'];
+    $slug = $_POST['slug'];
     $description = $_POST['description'];
+    $status = isset($_POST['status']) ? '1' : '0';
 
-    $new_image = "Images/category/" . basename($_FILES['image']['name']);
-    $old_image = $_POST['old_image'];
-
-    if ($new_image != "") {
+    // Check if a new image is uploaded
+    if (!empty($_FILES['image']['name'])) {
+        $new_image = "Images/category/" . basename($_FILES['image']['name']);
+        $imagePath = "../Assets/Images/category/" . basename($_FILES['image']['name']);
         $update_filename = $new_image;
+
+        // Move the uploaded image to the desired folder
+        move_uploaded_file($_FILES['image']['tmp_name'], $imagePath);
+
+        // Delete the old image
+        if (file_exists("../Assets/" . $old_image)) {
+            unlink("../Assets/" . $old_image);
+        }
     } else {
+        // No new image uploaded, retain the existing image path
         $update_filename = $old_image;
     }
-    $imagePath = "../Assets/Images/category/" . basename($_FILES['image']['name']);
-    $sql2 = "UPDATE category set category_name = '$name' , category_image = '$update_filename',category_descriptions = '$description' WHERE category_id = '$category_id'";
 
-    $update = mysqli_query($con,$sql2);
+    // Update the category record
+    $sql2 = "UPDATE category SET category_name = '$name',category_slug = '$slug' ,category_descriptions = '$description', category_status = '$status'";
 
-    if($update){
-        if($_FILES['image']['name'] !="")
-        {
-            move_uploaded_file($_FILES['image']['tmp_name'], $imagePath);
-            if(file_exists("../Assets/".$old_image)){
-                unlink("../Assets/".$old_image);
-            }
-        }
-        redirect("editCategory.php?id=$category_id","Category updated successfully");
-    }else{
-        redirect("editCategory.php?id=$category_id","Update failed");
+    // Update the category_image field only if a new image is uploaded
+    if (!empty($_FILES['image']['name'])) {
+        $sql2 .= ", category_image = '$update_filename'";
+    }
+
+    $sql2 .= " WHERE category_id = '$category_id'";
+
+    $update = mysqli_query($con, $sql2);
+
+    if ($update) {
+        redirect("editCategory.php?id=$category_id", "Category updated successfully");
+    } else {
+        redirect("editCategory.php?id=$category_id", "Update failed");
     }
 }
+
+
 else if(isset($_POST['delete_category'])){
     $category_id = mysqli_real_escape_string($con,$_POST['category_id']);
 
@@ -76,11 +92,13 @@ else if(isset($_POST['delete_category'])){
 if(isset($_POST['add_product'])){
     $category_id = $_POST['category_id'];
     $name = $_POST['name'];
+    $slug = $_POST['slug'];
     $description = $_POST['description'];
     $quantity = $_POST['quantity'];
     $price = $_POST['price'];
+    $status = isset($_POST['status']) ? '1' : '0';
 
-    $sql1 = "INSERT INTO product(product_name,product_quantity,product_price,product_descriptions,category_id) VALUES ('$name',$quantity,$price,'$description','$category_id')";
+    $sql1 = "INSERT INTO product(product_name,product_slug,product_quantity,product_price,product_status,product_descriptions,category_id) VALUES ('$name','$slug',$quantity,$price,$status,'$description','$category_id')";
     $addProduct = mysqli_query($con,$sql1);
 
     if($addProduct){
@@ -98,8 +116,10 @@ if(isset($_POST['add_product'])){
 }else if (isset($_POST['update_product'])) {
     $product_id = $_POST['product_id'];
     $name = $_POST['name'];
+    $slug = $_POST['slug'];
     $quantity = $_POST['quantity'];
     $price = $_POST['price'];
+    $status = isset($_POST['status']) ? '1' : '0';
     $description = $_POST['description'];
     $category_id = $_POST['category_id'];
 
@@ -129,7 +149,7 @@ if(isset($_POST['add_product'])){
         $update_filename = $old_image;
     }
 
-    $sql3 = "UPDATE product SET product_name = '$name', product_quantity = $quantity, product_price = $price, product_descriptions = '$description', category_id = $category_id WHERE product_id = '$product_id'";
+    $sql3 = "UPDATE product SET product_name = '$name', product_slug = '$slug' ,product_quantity = $quantity, product_price = $price, product_status = $status ,product_descriptions = '$description', category_id = $category_id WHERE product_id = '$product_id'";
     $update = mysqli_query($con, $sql3);
 
     if ($update) {

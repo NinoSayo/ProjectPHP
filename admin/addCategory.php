@@ -19,12 +19,20 @@ include("../Middleware/admin.php");
                                 <input type="text" name="name" placeholder="Enter Category Name" class="form-control">
                             </div>
                             <div class="col-md-6">
+                                <label for="Name">Slug:</label>
+                                <input type="text" name="slug" placeholder="Enter slug " class="form-control">
+                            </div>
+                            <div class="col-md-6">
                                 <label for="Image">Category Image:</label>
                                 <input type="file" name="image" class="form-control">
                             </div>
                             <div class="col-md-12 mb-2">
                                 <label for="">Description:</label>
                                 <textarea name="description" placeholder="Enter description" class="form-control" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="">Status</label>
+                                <input type="checkbox" name="status" id="">
                             </div>
                             <div class="col-md-12">
                                 <button type="submit" class= "btn btn-primary" name="add_category">Save</button>

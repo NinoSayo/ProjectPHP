@@ -45,6 +45,7 @@ function uploadImages($images, $product_id, $con) {
 
 
 
+
 function validateUploadFile($file, $uploadPath)
 {
     if ($file['size'] > 2 * 1024 * 1024) { // max upload = 2mb
@@ -71,7 +72,7 @@ function validateUploadFile($file, $uploadPath)
 function getProductsWithImages($product_id = null)
 {
     global $con;
-    $sql = "SELECT product.product_id, product.product_name, product.product_quantity, product.product_price, product.product_descriptions, product.category_id, product_image.image_source
+    $sql = "SELECT product.product_id, product.product_name, product.product_slug ,product.product_quantity, product.product_price, product.product_status,product.product_descriptions, product.category_id, product_image.image_source
             FROM product
             INNER JOIN product_image ON product.product_id = product_image.product_id";
 
@@ -105,5 +106,48 @@ function getCategoryName($category_id) {
         return $row['category_name'];
     } else {
         return "Uncategorized";
+    }
+}
+
+function getSingleData($table,$conditionField,$conditionValue){
+    global $con;
+
+    $conditionValue = mysqli_real_escape_string($con,$conditionValue);
+
+    $sql = "SELECT * FROM $table WHERE $conditionField = '$conditionValue' LIMIT 1 ";
+    $result = mysqli_query($con,$sql);
+
+    if($result && mysqli_num_rows($result) > 0){
+        return mysqli_fetch_assoc($result);
+    }else{
+        return null;
+    }
+}
+
+function getCart($table, $joinTable = null, $joinField = null, $joinOn = null) {
+    global $con;
+
+    // Prepare the JOIN part of the query if joinTable, joinField, and joinOn are provided
+    $join = "";
+    if ($joinTable && $joinField && $joinOn) {
+        $join = "JOIN $joinTable ON $table.$joinField = $joinTable.$joinOn";
+    }
+
+    // Build the SQL query to fetch all rows from the specified table with the optional JOIN
+    $sql = "SELECT * FROM $table $join";
+
+    // Execute the query
+    $result = mysqli_query($con, $sql);
+
+    // Check if the query was successful and return the fetched data as an array of associative arrays
+    if ($result && mysqli_num_rows($result) > 0) {
+        $data = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        return $data;
+    } else {
+        // Return an empty array if no data was found
+        return array();
     }
 }

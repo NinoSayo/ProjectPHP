@@ -10,17 +10,18 @@ include("Includes/header.php");
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Categories</h4>
+                        <h4>Order list</h4>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Slug</th>
-                                    <th>Description</th>
+                                    <th>User ID</th>
+                                    <th>Customer Name</th>
+                                    <th>Product ID</th>
+                                    <th>Product Image</th>
+                                    <th>Product Name</th>
+                                    <th>Product Quantity</th>
                                     <th>Status</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
@@ -28,17 +29,22 @@ include("Includes/header.php");
                             </thead>
                             <tbody>
                                 <?php
-                                $category = getAll("category");
-                                if (mysqli_num_rows($category) > 0) {
-                                    foreach ($category as $items) {
+                                $cart = getCart("carts","product","product_id","product_id");
+                                if (!empty($cart)) {
+                                    foreach ($cart as $items) {
+                                        $user_id = $items['user_id'];
+                                        $user_data = getSingleData("users","id",$user_id);
+                                        $username = $user_data['username'];
                                 ?>
                                         <tr>
-                                            <td><?= $items['category_id']; ?></td>
-                                            <td><img src="../Assets/<?= $items['category_image']; ?>" width="50px" height="50px" alt=""></td>
-                                            <td><?= $items['category_name']; ?></td>
-                                            <td><?= $items['category_slug']; ?></td>
-                                            <td><?= $items['category_descriptions']; ?></td>
-                                            <td><?=$items['category_status'] == '1' ? 'Visible' : 'Hidden' ?></td>
+                                            <td><?= $user_id; ?></td>
+                                            <td><?=$username;?></td>
+                                            <td><?= $items['product_id']; ?></td>
+                                            <td><img src="../Assets/<?= $product_image['image_source']; ?>" width="50px" height="50px" alt=""></td>
+                                            <td><?= $items['product_name']; ?></td>
+                                            <td><?=$items['product_qty']?></td>
+                                            <td><?=$items['cart_status'] == '1' ? 'Responded' : 'Pending' ?></td>
+                                            <td></td>
                                             <td>
                                                 <a href="editCategory.php?id=<?= $items['category_id']; ?>" class="btn btn-sm btn-primary">Edit</a>
                                             </td>

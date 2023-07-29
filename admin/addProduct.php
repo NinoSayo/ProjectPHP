@@ -20,6 +20,10 @@ include("../Functions/myFunction.php");
                                     <input type="text" name="name" placeholder="Enter Category Name" class="form-control mb-2">
                                 </div>
                                 <div class="col-md-6">
+                                    <label class="mb-0" for="Slug">Slug:</label>
+                                    <input type="text" name="slug" placeholder="Enter Slug" class="form-control mb-2">
+                                </div>
+                                <div class="col-md-6">
                                     <label class="mb-0" for="Image">Product Image:</label>
                                     <input type="file" name="image[]" multiple id="input-image" class="form-control mb-2">
                                 </div>
@@ -53,6 +57,10 @@ include("../Functions/myFunction.php");
                                         ?>
                                     </select>
                                 </div>
+                                <div class="col-md-6">
+                                <label for="">Status</label>
+                                <input type="checkbox" name="status" id="">
+                            </div>
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary" name="add_product">Save</button>
                                 </div>
