@@ -35,12 +35,16 @@ include("Includes/header.php");
                                         $user_id = $items['user_id'];
                                         $user_data = getSingleData("users","id",$user_id);
                                         $username = $user_data['username'];
+
+                                        $product_id = $items['product_id'];
+                                        $product_image_data = getSingleData("product_image","product_id",$product_id);
+                                        $image_source = $product_image_data['image_source']
                                 ?>
                                         <tr>
                                             <td><?= $user_id; ?></td>
                                             <td><?=$username;?></td>
                                             <td><?= $items['product_id']; ?></td>
-                                            <td><img src="../Assets/<?= $product_image['image_source']; ?>" width="50px" height="50px" alt=""></td>
+                                            <td><img src="../Assets/<?= $image_source; ?>" width="50px" height="50px" alt=""></td>
                                             <td><?= $items['product_name']; ?></td>
                                             <td><?=$items['product_qty']?></td>
                                             <td><?=$items['cart_status'] == '1' ? 'Responded' : 'Pending' ?></td>
