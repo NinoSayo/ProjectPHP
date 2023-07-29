@@ -16,7 +16,7 @@
                     <button class="btn btn-primary" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
                 </div>
             </form>
-            <ul class="navbar-nav mb-0 mb-lg-3">
+            <ul class="navbar-nav mb-0 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-person-circle"></i> </a>

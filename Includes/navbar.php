@@ -9,6 +9,9 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="index.php">Home</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="categories.php">Collection</a>
+          </li>
         <?php if (isset($_SESSION['auth'])) {
         ?>
           <li class="nav-item dropdown">

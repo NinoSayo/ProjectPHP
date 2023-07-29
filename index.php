@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("Includes/header.php");
 ?>
 <div class="py-5">
