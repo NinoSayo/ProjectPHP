@@ -27,7 +27,11 @@ if (isset($_SESSION['auth'])) {
                     $updateCart = mysqli_query($con, $sql2);
 
                     if ($updateCart) {
-                        echo 200; // 200 for updating the quantity
+                        $response = array(
+                            'status' => 200,
+                            'qty_total' => $new_qty
+                        );
+                        echo json_encode($response);
                     } else {
                         echo 500;
                     }

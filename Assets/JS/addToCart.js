@@ -43,12 +43,13 @@ $(document).ready(function () {
                 "scope": "add"
             },
             success: function (response) {
-                if(response ==  201){
+                if(response ==  200){
                     alertify.success('Product added to cart');
-                }else if(response == "Existing"){
-                    alertify.success("Product already in cart");
+                }else if(response == "existing"){
+                    alertify.success(qty + "item(s) added to cart. Total item: " + response.qty_total);
                 }else if(response == 401){
                     alertify.success("Login to continue");
+                    window.location.href = "login.php";
                 }else if(response == 500){
                     alertify.success("Something went wrong");
                 }
