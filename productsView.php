@@ -48,7 +48,7 @@ if (isset($_GET['product'])) {
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="input-group mb-3" style="width: 130px">
-                                    <Button class="input-group-text decrement-btn">-</Button>
+                                    <Button class="input-group-text decrement-btn ">-</Button>
                                     <input type="text" class="form-control text-center input-qty bg-white" value="1" disabled>
                                     <Button class="input-group-text increment-btn">+</Button>
                                 </div>

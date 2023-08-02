@@ -69,11 +69,8 @@
                         </div>
                     </div>
                     <li>
-                    <a href="Cart.php" class="nav-link px-3 ">
-                        <span class="me-2">
-                        <i class="bi bi-cart-plus-fill "></i>
-                        </span>
-                        <span>Cart</span>
+                    <a href="Order.php" class="nav-link px-3 ">
+                        <span class="me-2"><i class="bi bi-cart-plus-fill"></i> Orders </span>
                     </a>
                 </li>
                 </li>

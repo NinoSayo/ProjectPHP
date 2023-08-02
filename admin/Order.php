@@ -48,7 +48,6 @@ include("Includes/header.php");
                                             <td><?= $items['product_name']; ?></td>
                                             <td><?=$items['product_qty']?></td>
                                             <td><?=$items['cart_status'] == '1' ? 'Responded' : 'Pending' ?></td>
-                                            <td></td>
                                             <td>
                                                 <a href="editCategory.php?id=<?= $items['category_id']; ?>" class="btn btn-sm btn-primary">Edit</a>
                                             </td>

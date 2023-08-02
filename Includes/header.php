@@ -14,9 +14,6 @@
         a {
             text-decoration: none;
         }
-        .form-control{
-            margin-top:31px;
-        }
     </style>
 </head>
 
