@@ -40,21 +40,28 @@ $(document).ready(function () {
             data: {
                 "prod_id" : prod_id,
                 "prod_qty": qty,
-                "scope": "add"
+                "scope": "add",
             },
             success: function (response) {
-                if(response ==  200){
-                    alertify.success('Product added to cart');
-                }else if(response == "existing"){
-                    alertify.success(qty + "item(s) added to cart. Total item: " + response.qty_total);
-                }else if(response == 401){
-                    alertify.success("Login to continue");
-                    window.location.href = "login.php";
-                }else if(response == 500){
+                console.log(response);
+                try {
+                    var data = JSON.parse(response);
+                    if (data.status === "existing") {
+                        alertify.success(qty + ' item(s) added to cart. Total in cart: ' + data.qty_total);
+                    } else if (data.status === "added") {
+                        alertify.success(qty + ' item(s) added to cart');
+                    } else if (data.status === "login") {
+                        alertify.success("Login to continue");
+                        setTimeout(function(){
+                            window.location.href = 'login.php';
+                        }, 800);
+                    } else {
+                        alertify.success("Something went wrong");
+                    }
+                } catch (error) {
                     alertify.success("Something went wrong");
                 }
             }
         });
     });
-
 });

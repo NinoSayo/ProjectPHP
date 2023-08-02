@@ -44,14 +44,14 @@ if (isset($_POST['register-btn'])) {
         exit();
     }
 }
-}else if(isset($_POST['login-btn'])){
-    $email = mysqli_real_escape_string($con,$_POST['email']);
-    $password = mysqli_real_escape_string($con,$_POST['password']);
+}else if (isset($_POST['login-btn'])) {
+    $email = mysqli_real_escape_string($con, $_POST['email']);
+    $password = mysqli_real_escape_string($con, $_POST['password']);
 
-    $sql3 = "SELECT * FROM users WHERE email = '$email' and password= '$password'";
-    $login = mysqli_query($con,$sql3);
+    $sql3 = "SELECT * FROM users WHERE email = '$email' and password = '$password'";
+    $login = mysqli_query($con, $sql3);
 
-    if(mysqli_num_rows($login) > 0){
+    if (mysqli_num_rows($login) > 0) {
         $_SESSION['auth'] = true;
         $userData = mysqli_fetch_array($login);
         $userid = $userData['id'];
@@ -59,26 +59,34 @@ if (isset($_POST['register-btn'])) {
         $useremail = $userData['email'];
         $Role = $userData['Role'];
         $_SESSION['auth_user'] = [
-
             'id' => $userid,
             'username' => $username,
             'email' => $useremail,
         ];
-
         $_SESSION['Role'] = $Role;
 
-        if($Role == 1){
-            $_SESSION['message'] = "Welcome to Dashboard";
-        header("Location: ../admin/index.php");
-        }else{
-            $_SESSION['message'] = "Login successfully";
-            header("Location: ../index.php");   
+        if (isset($_POST['redirect']) && !empty($_POST['redirect'])) {
+            $redirect_url = $_POST['redirect'];
+            header("Location: " . urldecode($redirect_url));
+            exit();
+        } else {
+            if ($Role == 1) {
+                $_SESSION['message'] = "Welcome to Dashboard";
+                header("Location: ../admin/index.php");
+                exit();
+            } else {
+                $_SESSION['message'] = "Login successfully";
+                header("Location: ../index.php");
+                exit();
+            }
         }
-
-
-    }else{
+    } else {
+        $_SESSION['message'] = "Invalid login";
+        header("Location: ../login.php");
+        exit();
+    }
+}else{
         $_SESSION['message'] = "Invalid login";
         header("Location: ../login.php");
     }
-}
 ?>

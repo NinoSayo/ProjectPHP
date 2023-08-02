@@ -58,6 +58,8 @@ if (isset($_GET['product'])) {
 
                         <div class="row mt-3">
                             <div class="col-md-6">
+                            <input type="hidden" name="redirect" value="<?= $_SERVER['REQUEST_URI']; ?>">
+                            <input type="hidden" name="product_id" value="<?= $product['product_id']; ?>">
                                 <button class="btn btn-primary px-4 addToCart-btn " value="<?=$product['product_id']?>"><i class="bi bi-cart-plus-fill me-2"></i>Add to cart</button>
                             </div>
                             <div class="col-md-6">

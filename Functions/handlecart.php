@@ -28,7 +28,7 @@ if (isset($_SESSION['auth'])) {
 
                     if ($updateCart) {
                         $response = array(
-                            'status' => 200,
+                            'status' => 'existing',
                             'qty_total' => $new_qty
                         );
                         echo json_encode($response);
@@ -41,7 +41,10 @@ if (isset($_SESSION['auth'])) {
                     $addToCart = mysqli_query($con, $sql3);
 
                     if ($addToCart) {
-                        echo 201; // 201 for adding a new product to the cart
+                        $response = array(
+                            'status' => 'added'
+                        );
+                        echo json_encode($response); //
                     } else {
                         echo 500;
                     }
@@ -53,5 +56,8 @@ if (isset($_SESSION['auth'])) {
         }
     }
 } else {
-    echo 401;
+    $response = array(
+        'status' => 'login'
+    );
+    echo json_encode($response);
 }
