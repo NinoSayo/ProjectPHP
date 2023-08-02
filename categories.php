@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include("Functions/userFunction.php");
 include("Includes/header.php");
 
@@ -8,7 +8,7 @@ include("Includes/header.php");
 
 <div class ="py-3 bg-primary">
     <div class="container">
-        <h6 class="text-white">Home/Collection</h6>
+        <h6 class="text-white">Home / Collection</h6>
     </div>
 </div>
 

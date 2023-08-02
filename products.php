@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include("Functions/userFunction.php");
 include("Includes/header.php");
 
@@ -16,8 +16,8 @@ if($category){
     <div class ="py-3 bg-primary">
         <div class="container">
             <h6 class="text-white">
-                <a class ="text-white" href="categories.php">Home / </a>
-                <a class ="text-white" href="categories.php">Collection / </a>
+                <a class ="text-white" href="categories.php">Home  </a> /
+                <a class ="text-white" href="categories.php">Collection </a> /
            <?=$category['category_name'];?></h6>
         </div>
     </div>

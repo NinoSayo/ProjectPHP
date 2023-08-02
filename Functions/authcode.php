@@ -58,6 +58,7 @@ if (isset($_POST['register-btn'])) {
         $username = $userData['username'];
         $useremail = $userData['email'];
         $Role = $userData['Role'];
+        
         $_SESSION['auth_user'] = [
             'id' => $userid,
             'username' => $username,
@@ -71,7 +72,7 @@ if (isset($_POST['register-btn'])) {
             exit();
         } else {
             if ($Role == 1) {
-                $_SESSION['message'] = "Welcome to Dashboard";
+                $_SESSION['message'] = "Welcome " . $_SESSION['auth_user']['username'] . "!";
                 header("Location: ../admin/index.php");
                 exit();
             } else {

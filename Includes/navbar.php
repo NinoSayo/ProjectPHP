@@ -10,17 +10,22 @@
           <a class="nav-link active" aria-current="page" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="categories.php">Collection</a>
-          </li>
+          <a class="nav-link" href="categories.php">Collection</a>
+        </li>
         <?php if (isset($_SESSION['auth'])) {
         ?>
-          <li class="nav-item dropdown">
+          <li class="nav-item">
+            <a class="nav-link" href="shoppingCart.php"><i class="bi bi-cart"></i></a>
+          </li>
+          <li class="nav-item dropdown ">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <?= $_SESSION['auth_user']['username'] ?>
+            <i class="bi bi-person-vcard-fill"></i>
             </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+              <li><a class="dropdown-item disabled" aria-disabled="true"><?= $_SESSION['auth_user']['username']?></a></li>
+              <hr>
+              <li><a class="dropdown-item" href="#">Regular link</a></li>
+              <li><a class="dropdown-item" href="#">Another link</a></li>
               <li><a class="dropdown-item" href="logout.php">Logout</a></li>
             </ul>
           </li>

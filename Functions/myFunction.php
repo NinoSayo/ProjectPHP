@@ -56,6 +56,7 @@ function validateUploadFile($file, $uploadPath)
     if (!in_array($fileType, $validTypes)) {
         return false;
     }
+    
     $num = 1;
     $fileNamecheck = substr($file['name'], 0, strrpos($file['name'], "."));
     $fileName = $fileNamecheck;

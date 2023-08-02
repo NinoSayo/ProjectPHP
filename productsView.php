@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include("Functions/userFunction.php");
 include("Includes/header.php");
 

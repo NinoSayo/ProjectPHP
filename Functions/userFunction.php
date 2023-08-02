@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("Database/Connect.php");
 
 function getAllActive($table)
@@ -51,5 +52,19 @@ function getProductsWithImages($product_id = null)
         $data[] = $row;
     }
     return $data;
+}
+
+function getCartItems(){
+    global $con;
+    $userID =  $_SESSION['auth_user']['id'];
+    $sql = "SELECT c.cart_id as cid, c.product_id as pid, c.product_qty , p.product_name, p.product_price, pi.image_source, cat.category_name
+    FROM carts c
+    JOIN product p ON c.product_id = p.product_id
+    JOIN product_image pi ON p.product_id = pi.product_id
+    JOIN category cat on p.category_id = cat.category_id
+    WHERE user_id = '$userID'
+    ORDER BY c.cart_id DESC";
+    
+    return mysqli_query($con,$sql);
 }
 ?>

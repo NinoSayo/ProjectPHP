@@ -10,7 +10,10 @@ button {
     --topNavBarHeight: 56px;
 }
 
-
+h6#non-clickable {
+    pointer-events: none;
+    cursor: default;
+  }
 
 #offcanvasExample {
     width: var(--offcanvas-width);
@@ -28,6 +31,15 @@ button {
 
 .sidebar-link[aria-expanded="true"] .right-icon {
     transform: rotate(180deg);
+}
+
+.form-control{
+    border: 1px solid #b3a1a1 !important;
+    padding: 8px-10px;
+}
+.form-select{
+    border: 1px solid #b3a1a1 !important;
+    padding: 8px-10px;
 }
 
 @media (min-width: 992px) {
