@@ -50,8 +50,59 @@ if (isset($_SESSION['auth'])) {
                     }
                 }
                 break;
+            case "update":    
+                $prod_id = $_POST['prod_id'];
+                $prod_qty = $_POST['prod_qty'];
 
-            default:
+                $user_id = $_SESSION['auth_user']['id'];
+
+                
+                $sql1 = "SELECT * FROM carts WHERE product_id = '$prod_id' AND user_id = '$user_id'";
+                $checkCart = mysqli_query($con, $sql1);
+
+                if (mysqli_num_rows($checkCart) > 0) 
+                {
+                 $sql4 = "UPDATE carts SET product_qty = '$prod_qty' WHERE product_id = '$prod_id' AND user_id = '$user_id' ";
+                 $updateCart2 = mysqli_query($con,$sql4);
+
+                 if($updateCart2){
+                    echo 'success';
+                 }else{
+                    echo 'failed';
+                 }
+                } 
+                else 
+                {
+                echo "Something went wrong";
+                }
+                break; 
+            case "delete":
+                $cart_id = $_POST['cart_id'];      
+                
+                $user_id = $_SESSION['auth_user']['id'];
+
+                
+                $sql1 = "SELECT * FROM carts WHERE cart_id = '$cart_id' AND user_id = '$user_id'";
+                $checkCart = mysqli_query($con, $sql1);
+
+                if (mysqli_num_rows($checkCart) > 0) 
+                {
+                 $sql5 = "DELETE FROM carts WHERE cart_id = '$cart_id' ";
+                 $deleteCart = mysqli_query($con,$sql5);
+
+                 if($deleteCart){
+                    echo 'success';
+                 }else{
+                    echo 'Failed to delete the item';
+                 }
+                } 
+                else 
+                {
+                echo "Something went wrong";
+                }
+                break; 
+
+                default:
                 echo 500;
         }
     }

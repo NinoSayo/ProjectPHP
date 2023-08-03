@@ -1,6 +1,8 @@
 <?php
 
 include("Functions/userFunction.php");
+include("Functions/redirect.php");
+include("Functions/authenticate.php");
 include("Includes/header.php");
 ?>
 <link rel="stylesheet" href="Assets/CSS/cart.css">
@@ -34,6 +36,7 @@ include("Includes/header.php");
                         <div class="col align-self-center text-right text-muted">Number of items</div>
                     </div>
                 </div>
+                <div id="myCart">
                 <?php $items = getCartItems();
                 foreach ($items as $item) {
                 ?>
@@ -45,18 +48,20 @@ include("Includes/header.php");
                                 <div class="row" style="font-size:18px;"><?= $item['product_name'] ?></div>
                             </div>
                             <div class="col-md-4" id="qty">
+                            <input type="hidden" class="prodID" value="<?= $item['pid']; ?>">
                                 <div class="input-group mb-0" style="width: 120px; align-items:center;">
-                                    <Button class="input-group-text decrement-btn" style="height:38px">-</Button>
+                                    <Button class="input-group-text decrement-btn updateQty " style="height:38px">-</Button>
                                     <input type="text" class="form-control text-center input-qty bg-white" value="<?= $item['product_qty']; ?>" disabled>
-                                    <Button class="input-group-text increment-btn" style="height:38px">+</Button>
+                                    <Button class="input-group-text increment-btn updateQty" style="height:38px">+</Button>
                                 </div>
                             </div>
-                            <div class="col">&dollar;<?= $item['product_price'] ?><span class="close"><i class="bi bi-trash3"></i></span></div>
+                            <div class="col">&dollar;<?= $item['product_price'] ?><span class="close deleteItem" value="<?=$item['cid']?>"><i class="bi bi-trash3"></i></span></div>
                         </div>
                     </div>
                 <?php
                 }
                 ?>
+                </div>
                 <div class="back-to-shop"><a href="#"><i class="bi bi-arrow-left"></i></a><span class="text-muted">Back to Shop</span></div>
             </div>
             <div class="col-md-4 summary">
