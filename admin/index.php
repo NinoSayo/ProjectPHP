@@ -54,8 +54,8 @@ include("Includes/header.php");
                     <div class="card-header">
                         Charts
                     </div>
-                    <div class="card-body">
-                        <canvas class="chart" width="400" height="200"></canvas>
+                    <div>
+                        <canvas id="myChart"></canvas>
                     </div>
                 </div>
             </div>

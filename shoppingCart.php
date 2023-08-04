@@ -24,6 +24,10 @@ include("Includes/header.php");
     </div>
 </div>
 
+<?php
+$items = getCartItems();
+$numItems = mysqli_num_rows($items);
+?>
 <div class="py-5">
     <div class="card">
         <div class="row">
@@ -33,34 +37,53 @@ include("Includes/header.php");
                         <div class="col">
                             <h4><b>Shopping Cart</b></h4>
                         </div>
-                        <div class="col align-self-center text-right text-muted">Number of items</div>
+                        <div class="col align-self-center text-right text-muted">
+                            <?php if (mysqli_num_rows($items) > 0) {
+                                echo $numItems;
+                            } else {
+                                echo "0";
+                            } ?> item(s) in cart</div>
                     </div>
                 </div>
                 <div id="myCart">
-                <?php $items = getCartItems();
-                foreach ($items as $item) {
-                ?>
-                    <div class="row border-top border-bottom product_data">
-                        <div class="row main align-items-center">
-                            <div class="col-2"><img class="img-fluid" src="Assets/<?= $item['image_source'] ?>"></div>
-                            <div class="col">
-                                <div class="row text-muted" style="font-size:12px;"><?= $item['category_name'] ?></div>
-                                <div class="row" style="font-size:18px;"><?= $item['product_name'] ?></div>
-                            </div>
-                            <div class="col-md-4" id="qty">
-                            <input type="hidden" class="prodID" value="<?= $item['pid']; ?>">
-                                <div class="input-group mb-0" style="width: 120px; align-items:center;">
-                                    <Button class="input-group-text decrement-btn updateQty " style="height:38px">-</Button>
-                                    <input type="text" class="form-control text-center input-qty bg-white" value="<?= $item['product_qty']; ?>" disabled>
-                                    <Button class="input-group-text increment-btn updateQty" style="height:38px">+</Button>
+                    <?php
+                    if (mysqli_num_rows($items) > 0) {
+                    ?>
+                        <div id="">
+                            <?php
+                            foreach ($items as $item) {
+                            ?>
+                                <div class="row border-top border-bottom product_data">
+                                    <div class="row main align-items-center">
+                                        <div class="col-2"><img class="img-fluid" src="Assets/<?= $item['image_source'] ?>"></div>
+                                        <div class="col">
+                                            <div class="row text-muted" style="font-size:12px;"><?= $item['category_name'] ?></div>
+                                            <div class="row" style="font-size:18px;"><?= $item['product_name'] ?></div>
+                                        </div>
+                                        <div class="col-md-4" id="qty">
+                                            <input type="hidden" class="prodID" value="<?= $item['pid']; ?>">
+                                            <div class="input-group mb-0" style="width: 120px; align-items:center;">
+                                                <Button class="input-group-text decrement-btn updateQty " style="height:38px">-</Button>
+                                                <input type="text" class="form-control text-center input-qty bg-white" value="<?= $item['product_qty']; ?>" disabled>
+                                                <Button class="input-group-text increment-btn updateQty" style="height:38px">+</Button>
+                                            </div>
+                                        </div>
+                                        <div class="col">&dollar;<?= $item['product_price'] ?><span class="close deleteItem" value="<?= $item['cid'] ?>"><i class="bi bi-trash3"></i></span></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col">&dollar;<?= $item['product_price'] ?><span class="close deleteItem" value="<?=$item['cid']?>"><i class="bi bi-trash3"></i></span></div>
+                            <?php
+                            }
+                            ?>
                         </div>
-                    </div>
-                <?php
-                }
-                ?>
+                    <?php
+                    } else {
+                    ?>
+                        <div class="card card-body text-center" style="box-shadow: none;">
+                            <h4 class="py-3" style="color: red;">Your cart is empty</h4>
+                        </div>
+                    <?php
+                    }
+                    ?>
                 </div>
                 <div class="back-to-shop"><a href="#"><i class="bi bi-arrow-left"></i></a><span class="text-muted">Back to Shop</span></div>
             </div>
@@ -69,10 +92,6 @@ include("Includes/header.php");
                     <h5><b>Summary</b></h5>
                 </div>
                 <hr>
-                <div class="row">
-                    <div class="col" style="padding-left:0;">Number of Items</div>
-                    <div class="col text-right">&dollar; Total price</div>
-                </div>
                 <form>
                     <p>SHIPPING</p>
                     <select>
@@ -85,11 +104,12 @@ include("Includes/header.php");
                     <div class="col">TOTAL PRICE</div>
                     <div class="col text-right">&dollar;Total price</div>
                 </div>
-                <button class="btn checkout-btn"><i class="bi bi-cart-check"></i> CHECKOUT</button>
+                <button class="btn checkout-btn" onclick="location.href='payment.php'"><i class="bi bi-cart-check"></i> CHECKOUT</button>
             </div>
         </div>
     </div>
 </div>
+
 <?php
 
 include("Includes/footer.php");

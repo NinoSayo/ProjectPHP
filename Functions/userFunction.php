@@ -67,4 +67,17 @@ function getCartItems(){
     
     return mysqli_query($con,$sql);
 }
+
+function getOrderDetails(){
+    global $con;
+    $userID = $_SESSION['auth_user']['id'];
+
+    $sql = "SELECT o.order_id, oi.item_qty, oi.item_price, p.product_name, o.payment_method, o.create_at, o.total_price, o.order_status, o.shipping_firstname, o.shipping_lastname, o.shipping_phone, o.shipping_email, o.shipping_country, o.shipping_address, o.shipping_city, o.shipping_pin
+    FROM orders o
+    JOIN order_items oi ON o.order_id = oi.order_id
+    JOIN product p ON oi.product_id = p.product_id
+    WHERE o.user_id = '$userID'
+    ORDER BY o.create_at DESC";
+    return mysqli_query($con,$sql);
+}
 ?>

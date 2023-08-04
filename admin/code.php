@@ -153,7 +153,7 @@ if(isset($_POST['add_product'])){
     $update = mysqli_query($con, $sql3);
 
     if ($update) {
-        redirect("editProduct.php?id=$product_id", "Product updated successfully");
+        redirect("product.php", "Product updated successfully");
     } else {
         redirect("editProduct.php?id=$product_id", "Update failed");
     }

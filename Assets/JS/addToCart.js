@@ -30,10 +30,10 @@ $(document).ready(function () {
 
     $('.addToCart-btn').click(function (e) { 
         e.preventDefault();
-
+    
         var qty = $(this).closest('.product_data').find('.input-qty').val();
         var prod_id = $(this).val();
-
+    
         $.ajax({
             method: "POST",
             url: "Functions/handlecart.php",
@@ -49,25 +49,30 @@ $(document).ready(function () {
                         alertify.success(qty + ' item(s) added to cart. Total in cart: ' + data.qty_total);
                     } else if (data.status === "added") {
                         alertify.success(qty + ' item(s) added to cart');
+                    } else if (data.status === "out_of_stock") {
+                        alertify.error("Not enough items in the shop");
+                    } else if (data.status === "reached_max_qty") {
+                        alertify.error("Maximum available quantity reached.");
                     } else if (data.status === "login") {
                         alertify.success("Login to continue");
                         setTimeout(function(){
                             window.location.href = 'login.php';
                         }, 800);
                     } else {
-                        alertify.success("Something went wrong");
+                        alertify.error("Something went wrong");
                     }
                 } catch (error) {
-                    alertify.success("Something went wrong");
+                    alertify.error("Something went wrong");
                 }
             }
         });
     });
-
+    
+    
     $(document).on('click','.updateQty' , function () {
         var qty = $(this).closest('.product_data').find('.input-qty').val();
         var prod_id = $(this).closest('.product_data').find('.prodID').val();
-
+    
         $.ajax({
             method: "POST",
             url: "Functions/handlecart.php",
@@ -77,11 +82,11 @@ $(document).ready(function () {
                 "scope": "update",
             },
             success: function (response) {
-                // alert(response);
+                // Handle the response as needed
             }
         });
-
     });
+    
 
     $(document).on('click','.deleteItem', function () {
         var cart_id = $(this).attr('value');

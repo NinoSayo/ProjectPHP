@@ -25,7 +25,7 @@
               <li><a class="dropdown-item disabled" aria-disabled="true"><?= $_SESSION['auth_user']['username']?></a></li>
               <hr>
               <li><a class="dropdown-item" href="#">Regular link</a></li>
-              <li><a class="dropdown-item" href="#">Another link</a></li>
+              <li><a class="dropdown-item" href="myOrder.php">Your order</a></li>
               <li><a class="dropdown-item" href="logout.php">Logout</a></li>
             </ul>
           </li>
