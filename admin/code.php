@@ -70,13 +70,6 @@ if (isset($_POST['add_category'])) {
 else if(isset($_POST['delete_category'])){
     $category_id = mysqli_real_escape_string($con,$_POST['category_id']);
 
-    $sql_product = "SELECT COUNT(*) AS product_count FROM product WHERE category_id = '$category_id'";
-    $result_product = mysqli_query($con,$sql_product);
-    $row_product = mysqli_fetch_assoc($result_product);
-    $product_count = $row_product['product_count'];
-
-    if($product_count > 0){
-        redirect("category.php","Cannot delete this category.");
     $sql3 = "SELECT * FROM category WHERE category_id = '$category_id'";
     $category = mysqli_query($con,$sql3);
     $categoryData = mysqli_fetch_array($category);
@@ -94,7 +87,6 @@ else if(isset($_POST['delete_category'])){
         redirect("category.php","Delete failed");
 
     }
-}
 }
 
 if(isset($_POST['add_product'])){

@@ -64,7 +64,6 @@ include("Includes/header.php");
     </div>
     </div>
 </main>
-
 <?php
 include("Includes/footer.php");
 ?>
