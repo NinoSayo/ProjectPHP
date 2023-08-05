@@ -57,7 +57,7 @@ function getProductsWithImages($product_id = null)
 function getCartItems(){
     global $con;
     $userID =  $_SESSION['auth_user']['id'];
-    $sql = "SELECT c.cart_id as cid, c.product_id as pid, c.product_qty , p.product_name, p.product_price, pi.image_source, cat.category_name
+    $sql = "SELECT c.cart_id as cid, c.product_id as pid, c.product_qty , p.product_name, p.product_quantity , p.product_price, pi.image_source, cat.category_name
     FROM carts c
     JOIN product p ON c.product_id = p.product_id
     JOIN product_image pi ON p.product_id = pi.product_id

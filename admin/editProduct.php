@@ -28,8 +28,10 @@ include("../Functions/myFunction.php");
                                                 <label class="mb-0" for="Name">Name:</label>
                                                 <input type="text" name="name" value="<?= $data['product_name'] ?>" class="form-control mb-2">
                                             </div>
+                                            <div class="col-md-6">
                                             <label class="mb-0" for="Slug">Slug:</label>
                                             <input type="text" name="slug" value="<?= $data['product_slug'] ?>" class="form-control mb-2">
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="mb-0" for="Image">Product Image:</label>

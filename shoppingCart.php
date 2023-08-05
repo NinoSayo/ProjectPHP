@@ -63,9 +63,10 @@ $numItems = mysqli_num_rows($items);
                                         <div class="col-md-4" id="qty">
                                             <input type="hidden" class="prodID" value="<?= $item['pid']; ?>">
                                             <div class="input-group mb-0" style="width: 120px; align-items:center;">
+                                            <input type="hidden" class="available-qty" data-available-qty="<?= $item['product_quantity']; ?>">
                                                 <Button class="input-group-text decrement-btn updateQty " style="height:38px">-</Button>
                                                 <input type="text" class="form-control text-center input-qty bg-white" value="<?= $item['product_qty']; ?>" disabled>
-                                                <Button class="input-group-text increment-btn updateQty" style="height:38px">+</Button>
+                                                <Button class="input-group-text increment-btn updateQty" style="height:38px" >+</Button>
                                             </div>
                                         </div>
                                         <div class="col">&dollar;<?= $item['product_price'] ?><span class="close deleteItem" value="<?= $item['cid'] ?>"><i class="bi bi-trash3"></i></span></div>
@@ -100,10 +101,6 @@ $numItems = mysqli_num_rows($items);
                     <p>DISCOUNT</p>
                     <input type="text" id="code" placeholder="Enter promo code">
                 </form>
-                <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding:2vh 0;">
-                    <div class="col">TOTAL PRICE</div>
-                    <div class="col text-right">&dollar;Total price</div>
-                </div>
                 <button class="btn checkout-btn" onclick="location.href='payment.php'"><i class="bi bi-cart-check"></i> CHECKOUT</button>
             </div>
         </div>

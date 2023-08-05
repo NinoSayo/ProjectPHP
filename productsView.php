@@ -42,6 +42,7 @@ if (isset($_GET['product'])) {
                         <div class="row">
                             <div class="col-md-6">
                                 <h5>$<?= $product['product_price'] ?></h5>
+                                <h5 class="text-muted" style="font-size:17px">Items in stock : <?=$product['product_quantity'];?></h5>
                             </div>
                         </div>
 
