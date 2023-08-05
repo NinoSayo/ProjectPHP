@@ -41,7 +41,7 @@ include("../Functions/myFunction.php");
                             </div>
                                 <div class="col-md-6">
                                     <label class="mb-2" for="Image">Category:</label>
-                                    <select name = "category_id" class="form-select mb-2">
+                                    <select name = "category_id" class="form-select mb-2" required>
                                         <option selected>Select Category</option>
                                         <?php
                                         $categories = getAll("category");
