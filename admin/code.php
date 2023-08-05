@@ -183,9 +183,9 @@ if(isset($_POST['add_product'])){
         $result_delete_product = mysqli_query($con, $sql_delete_product);
 
         if ($result_delete_product) {
-            echo "success";
+            redirect("product.php","Product deleted successfully");
         } else {
-            echo "error";
+            redirect("product.php?id=" . $item['product_id'], "Delete failed");
         }
     }
 }else {

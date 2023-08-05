@@ -49,8 +49,10 @@ include("Includes/header.php");
                                                 <a href="editProduct.php?id=<?= $items['product_id']; ?>" class="btn btn-sm btn-primary">Edit</a>
                                             </td>
                                             <td>
-                                              <button type="button" class="btn btn-sm btn-danger delete_product" value="<?= $items['product_id']; ?>">Delete</button>
-                                            </td>
+                                            <form action="code.php" method="POST">
+                                                    <input type="hidden" name="product_id" value="<?= $items['product_id']; ?>">
+                                                    <button type="submit" class="btn btn-sm btn-danger" name="delete_product">Delete</button>
+                                                </form>                                            </td>
                                         </tr>
                                 <?php
                                     }
