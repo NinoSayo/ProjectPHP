@@ -34,7 +34,9 @@ include("Includes/header.php");
                                 <label for="floatingInput">Password</label>
                             </div>
                             <button type="submit" name="login-btn" class="btn btn-primary">Login</button>
+                            <a href="forgotpassword.php">Forgot Password?</a>
                         </form>
+                        <div></div>
                     </div>
                 </div>
             </div>

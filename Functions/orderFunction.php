@@ -23,12 +23,25 @@ if (isset($_SESSION['auth'])) {
             $payment_id = 2;
         }else if($payment_method === "credit_card"){
             $payment_id = 3;
+        }else if($payment_method === "cod"){
+            $payment_id = 4;
         }
 
         if (empty($firstname) || empty($lastname) || empty($phone) || empty($email) || empty($country) || empty($address) || empty($city) || empty($pin)) {
             $_SESSION['message'] = "All fields must be filled";
-            header("Location: ../payment.php");
-            exit(); // Make sure to exit after redirection
+        
+            // Store user input in session
+            $_SESSION['input']['fname'] = $firstname;
+            $_SESSION['input']['lname'] = $lastname;
+            $_SESSION['input']['phone'] = $phone;
+            $_SESSION['input']['email'] = $email;
+            $_SESSION['input']['country'] = $country;
+            $_SESSION['input']['address'] = $address;
+            $_SESSION['input']['city'] = $city;
+            $_SESSION['input']['pin'] = $pin;
+        
+            header("Location: ../checkout.php");
+            exit();
         }
 
         // Retrieve cart items

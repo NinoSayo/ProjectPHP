@@ -11,8 +11,12 @@ if (isset($_POST['register-btn'])) {
     $cpassword = mysqli_real_escape_string($con, $_POST['cpassword']);
 
     // Check if email, username, or phone number is already registered
-    $sql = "SELECT * FROM users WHERE email = '$email' OR username = '$username' OR phone = '$phone'";
-    $checkValidation = mysqli_query($con, $sql);
+    $sql1 = "SELECT * FROM users WHERE email = '$email' OR username = '$username' OR phone = '$phone'";
+    $checkValidation = mysqli_query($con, $sql1);
+
+    //Check if google user already in database
+    $sql2 = "SELECT * FROM uesrs WHERE oauth_provider = 'oauth_provider' AND oauth_uid = 'oauth_uid'";
+    $checkGoogleValidation = mysqli_query($con,$sql2);
 
     if (mysqli_num_rows($checkValidation) > 0) {
         $row = mysqli_fetch_assoc($checkValidation);
@@ -89,5 +93,9 @@ if (isset($_POST['register-btn'])) {
 }else{
         $_SESSION['message'] = "Invalid login";
         header("Location: ../login.php");
+    }
+
+    if($mysqli_num_rows($checkGoogleValidation) > 0){
+        
     }
 ?>

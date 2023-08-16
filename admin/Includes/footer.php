@@ -11,15 +11,22 @@
 <script src="../Assets/JS/adminChart.js"></script>
 <script src="../Assets/JS/custom.js"></script>
 <script src="../Assets/JS/adminOrder.js"></script>
+<script src="../Assets/JS/alertify.min.js"></script>
 
 <script>
-    <?php
-    if (isset($_SESSION['message'])) { ?>
+    // Wait for the DOM to be fully loaded
+    document.addEventListener("DOMContentLoaded", function () {
+        // Set the Alertify notifier position to top-center
         alertify.set('notifier', 'position', 'top-center');
-        alertify.success('<?= $_SESSION['message']; ?>');
-    <?php
-        unset($_SESSION['message']);
-    } ?>
+
+        <?php
+        if (isset($_SESSION['message'])) { ?>
+            // Display the session message as a success notification
+            alertify.success('<?= $_SESSION['message']; ?>');
+            <?php
+            unset($_SESSION['message']);
+        } ?>
+    });
 </script>
 </body>
 
