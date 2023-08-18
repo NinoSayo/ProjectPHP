@@ -1,8 +1,8 @@
 <?php
 session_start();
-include("Includes/header.php");
 include("../Middleware/admin.php");
 include("../Functions/myFunction.php");
+include("Includes/header.php");
 ?>
 <main class="mt-5 pt-5">
     <div class="container-fluid">

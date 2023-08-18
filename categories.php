@@ -6,9 +6,13 @@ include("Includes/header.php");
 
 ?>
 
-<div class ="py-3 bg-primary">
+<div class="breadcrumbs">
     <div class="container">
-        <h6 class="text-white">Home / Collection</h6>
+        <div class="row">
+            <div class="col">
+                <p class="bread"><span><a href="index.php">Home</a></span> / <span>Category</span></p>
+            </div>
+        </div>
     </div>
 </div>
 

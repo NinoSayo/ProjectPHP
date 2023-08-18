@@ -4,7 +4,7 @@
 <!-- Bootstrap JS and Popper JS -->
 <script src="../Assets/JS/popper.min.js.map"></script>
 <script src="../Assets/JS/popper.min.js"></script>
-<script src="../Assets/JS/bootstrap.bundle.min.js"></script>
+<script src="../Assets/JS/coreui.bundle.min.js"></script>
 
 <!-- Rest of the scripts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

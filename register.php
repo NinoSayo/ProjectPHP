@@ -2,6 +2,15 @@
 session_start();
 include("Includes/header.php");
 ?>
+<style>
+    input::placeholder{
+    font-weight: normal;
+    }
+
+    input::placeholder strong {
+    font-weight: bold;
+    }
+</style>
 <div class="py-5">
     <div class="container">
         <div class="row justify-content-center">
@@ -20,10 +29,10 @@ include("Includes/header.php");
                         <form action="Functions/authcode.php" method="POST">
                             <div class="row mb-3">
                                 <div class="col">
-                                    <input type="text" name="fname" class="form-control" placeholder="First name" aria-label="First name" required>
+                                    <input type="text" name="fname"  class="form-control" placeholder="First name" aria-label="First name" required>
                                 </div>
                                 <div class="col">
-                                    <input type="text" name="lname" class="form-control" placeholder="Last name" aria-label="Last name" required>
+                                    <input type="text" name="lname"  class="form-control" placeholder="Last name" aria-label="Last name" required>
                                 </div>
                             </div>
                             <div class="form-floating mb-3">

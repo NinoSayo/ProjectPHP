@@ -1,44 +1,39 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-black">
-  <div class="container">
-    <a class="navbar-brand" href="index.php">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.php">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="categories.php">Collection</a>
-        </li>
-        <?php if (isset($_SESSION['auth'])) {
-        ?>
-          <li class="nav-item">
-            <a class="nav-link" href="cart.php"><i class="bi bi-cart"></i></a>
-          </li>
-          <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-person-vcard-fill"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
-              <li><a class="dropdown-item disabled" aria-disabled="true"><?= $_SESSION['auth_user']['username']?></a></li>
-              <hr>
-              <li><a class="dropdown-item" href="#">Regular link</a></li>
-              <li><a class="dropdown-item" href="myOrder.php">Your order</a></li>
-              <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+<nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
+    <div class="container-fluid">
+        <!-- Offcanvas trigger -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+        <span class="navbar-toggler-icon" data-bs-target="#offcanvasExample"></span>
+        </button>
+        <!-- Offcanvas trigger -->
+        <a class="navbar-brand fw-bold text-uppercase me-auto" href="index.php">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form class="d-flex ms-auto" role="search">
+                <div class="input-group my-3 my-lg-0 ">
+                    <input type="text" class="form-control" placeholder="What are you looking for?" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-primary" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+                </div>
+            </form>
+            <ul class="navbar-nav mb-0 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle"></i> </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+                    <li><a class="dropdown-item disabled" aria-disabled="true"><?= $_SESSION['auth_user']['username']?></a></li>
+                    <hr class="dropdown-divider">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
+                    </ul>
+                </li>
             </ul>
-          </li>
-        <?php
-        } else { ?>
-          <li class="nav-item">
-            <a class="nav-link" href="register.php">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="login.php">Login</a>
-          </li>
-        <?php } ?>
-      </ul>
+            </ul>
+            </li>
+        </div>
     </div>
-  </div>
 </nav>

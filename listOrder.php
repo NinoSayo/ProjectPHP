@@ -29,6 +29,12 @@ include("Includes/header.php");
         <div class="row">
             <div class="col-md-8 cart">
                 <table class="table table-bordered table-striped text-center">
+                    <?php
+                            $orders = getOrderDetails();
+
+                            if (mysqli_num_rows($orders) > 0) {
+                                foreach ($orders as $item) {
+                            ?>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -42,12 +48,6 @@ include("Includes/header.php");
                     </thead>
                     <tbody>
                         <div id="myOrder">
-                            <?php
-                            $orders = getOrderDetails();
-
-                            if (mysqli_num_rows($orders) > 0) {
-                                foreach ($orders as $item) {
-                            ?>
                                     <tr>
                                         <td class="vertical-middle"><?= $item['order_id'] ?></td>
                                         <td class="vertical-middle"><?= $item['product_name'] ?></td>
@@ -101,7 +101,6 @@ include("Includes/header.php");
                         <p><strong>Address:</strong> <?= $item['shipping_address'] ?></p>
                         <p><strong>City:</strong> <?= $item['shipping_city'] ?></p>
                         <p><strong>Postal Code:</strong> <?= $item['shipping_pin'] ?></p>
-
                     <?php
                     }
                     ?>

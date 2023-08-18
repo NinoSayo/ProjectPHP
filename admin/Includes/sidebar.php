@@ -15,7 +15,15 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="my-4">
+                <li>
+                    <a href="../index.php" class="nav-link px-3">
+                        <span class="me-2">
+                        <i class="bi bi-shop"></i>
+                        </span>
+                        <span>View store</span>
+                    </a>
+                </li>
+                <li class="my-2">
                     <hr class="dropdown-divider">
                 </li>
                 <li>

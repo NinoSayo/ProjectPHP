@@ -3,7 +3,7 @@ session_start();
 include("../Middleware/admin.php");
 include("Includes/header.php");
 ?>
-<main class="mt-5 pt-5 ">
+<main class="mt-3">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 fw-bold fs-3">
