@@ -3,8 +3,14 @@
 body,
 button {
     font-family: "Inter", sans-serif;
-    background-color: black;
-    color: white;
+    background-color: white;
+    color:black;
+}
+
+body.dark-theme{
+    background-color: #181924;
+    color: rgba(255, 255, 255, 0.87)
+
 }
 
 :root {

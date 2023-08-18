@@ -1,6 +1,6 @@
-<div class="offcanvas offcanvas-start bg-black text-white fixed-top" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-    <div class="offcanvas-body p-0">
-        <nav class="navbar-dark">
+<div class="offcanvas offcanvas-start bg-black fixed-top" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-body px-0">
+        <nav class="side navbar-dark">
             <ul class="navbar-nav">
                 <li>
                     <div class="text-muted small fw-bold text-uppercase px-3">
