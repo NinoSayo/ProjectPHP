@@ -16,7 +16,7 @@ include("../Functions/myFunction.php");
                     if (count($products) > 0) {
                         foreach ($products as $data) {
                 ?>
-                            <div class="card">
+                <div class="card card-theme bg-dark shadow-lg">
                                 <div class="card-header">
                                     <h4>Edit Product</h4>
                                 </div>

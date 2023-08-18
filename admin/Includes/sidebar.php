@@ -1,4 +1,4 @@
-<div class="offcanvas offcanvas-start bg-black fixed-top" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+<div class="offcanvas offcanvas-start bg-dark fixed-top" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-body px-0">
         <nav class="side navbar-dark">
             <ul class="navbar-nav">

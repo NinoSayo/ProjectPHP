@@ -8,12 +8,12 @@ include("Includes/header.php");
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+            <div class="card card-theme bg-dark shadow-lg">
                     <div class="card-header">
                         <h4>Categories</h4>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped text-white">
                             <thead>
                                 <tr>
                                     <th>ID</th>

@@ -1,6 +1,6 @@
 <script src="../Assets/JS/adminDashboard.js"></script>
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-black ">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark ">
     <div class="container-fluid">
         <!-- Offcanvas trigger -->
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -15,11 +15,11 @@
             <form class="d-flex ms-auto" role="search">
             <nav class="header-nav ms-auto me-4">
             <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-              <input class="btn-check" id="btn-light-theme" type="radio" name="theme-switch" autocomplete="off" value="light" onchange="changeTheme()">
+              <input class="btn-check" id="btn-light-theme" type="radio" name="theme-switch" autocomplete="off" value="light" onchange="changeTheme('light')">
               <label class="btn btn-primary" for="btn-light-theme">
               <i class="bi bi-brightness-high"></i>
               </label>
-              <input class="btn-check" id="btn-dark-theme" type="radio" name="theme-switch" autocomplete="off" value="dark" onchange="changeTheme()">
+              <input class="btn-check" id="btn-dark-theme" type="radio" name="theme-switch" autocomplete="off" value="dark" onchange="changeTheme('dark')">
               <label class="btn btn-primary" for="btn-dark-theme">
               <i class="bi bi-moon-stars"></i>              
             </label>

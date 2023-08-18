@@ -16,7 +16,7 @@ include("../Functions/myFunction.php")
                     if (mysqli_num_rows($category) > 0) {
                         $data = mysqli_fetch_array($category);
                 ?>
-                        <div class="card">
+                <div class="card card-theme bg-dark shadow-lg">
                             <div class="card-header">
                                 <h4>Edit Category</h4>
                             </div>

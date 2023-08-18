@@ -11,7 +11,7 @@ include("Includes/header.php");
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 mb-3">
+            <div class="col-md-3 mt-3 mb-3">
                 <div class="card text-bg-primary h-100">
                     <div class="card-header">Header</div>
                     <div class="card-body">
@@ -20,7 +20,7 @@ include("Includes/header.php");
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-3 mt-3 mb-3">
                 <div class="card text-bg-info h-100">
                     <div class="card-header">Header</div>
                     <div class="card-body">
@@ -29,7 +29,7 @@ include("Includes/header.php");
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-3 mt-3 mb-3">
                 <div class="card text-bg-danger h-100">
                     <div class="card-header">Header</div>
                     <div class="card-body">
@@ -38,8 +38,8 @@ include("Includes/header.php");
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
-                <div class="card text-bg-dark h-100">
+            <div class="col-md-3 mt-3 mb-3">
+                <div class="card text-bg-warning h-100">
                     <div class="card-header">Header</div>
                     <div class="card-body">
                         <h5 class="card-title">Primary card title</h5>

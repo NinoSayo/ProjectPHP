@@ -3,11 +3,11 @@ session_start();
 include("../Middleware/admin.php");
 include("Includes/header.php");
 ?>
-<main class="mt-5 pt-5">
+<main class="mt-2 pt-2">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card card-theme bg-dark shadow-lg">
                     <div class="card-header">
                         <h4>Add Category</h4>
                     </div>

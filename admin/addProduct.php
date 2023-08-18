@@ -4,11 +4,11 @@ include("../Middleware/admin.php");
 include("../Functions/myFunction.php");
 include("Includes/header.php");
 ?>
-<main class="mt-5 pt-5">
+<main class="mt-2 pt-2">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+            <div class="card card-theme bg-dark shadow-lg">
                     <div class="card-header">
                         <h4>Add Product</h4>
                     </div>
@@ -37,7 +37,7 @@ include("Includes/header.php");
                                 </div>
                                 <div class="col-md-12">
                                 <label class="mb-0">Description:</label>
-                                <textarea name="description" placeholder="Enter description" class="form-control mb-2" cols="30" rows="10"></textarea>
+                                <textarea name="description" placeholder="Enter description" class="form-control mb-2" cols="30" rows="9"></textarea>
                             </div>
                                 <div class="col-md-6">
                                     <label class="mb-2" for="Image">Category:</label>
