@@ -6,21 +6,28 @@ include("../Functions/myFunction.php");
 if (isset($_POST['add_category'])) {
     $name = $_POST['name'];
     $description = $_POST['description'];
-    $status = isset($_POST['status']) ? '1' : '0';
     $slug = $_POST['slug'];
+    $status = isset($_POST["status"]) ? 1 : 0; // Set status to 1 if the checkbox is checked
 
     $image = "Images/category/" . basename($_FILES['image']['name']);
     $imagePath = "../Assets/Images/category/" . basename($_FILES['image']['name']);
 
-    $sql1 = "INSERT INTO category(category_name,category_slug,category_image,category_descriptions,category_status) VALUES ('$name','$slug','$image','$description','$status')";
+    $imageDirectory = dirname($imagePath);
+    if (!is_dir($imageDirectory)) {
+        mkdir($imageDirectory, 0755, true); // Change permissions as needed
+    }
 
-    $addCategory = mysqli_query($con, $sql1);
+    $sql = "INSERT INTO category(category_name, category_slug, category_image, category_descriptions, category_status) VALUES ('$name', '$slug', '$image', '$description', '$status')"; // Fixed SQL query
+
+    $addCategory = mysqli_query($con, $sql);
 
     if ($addCategory) {
         move_uploaded_file($_FILES['image']['tmp_name'], $imagePath);
-        redirect("addCategory.php", "Category added successfully");
+        $message = $status === 1 ? "Category added to store successfully" : "Category hidden successfully"; // Fixed status comparison
+        redirect("addCategory.php", $message);
     } else {
-        redirect("addCategory.php", "Failed to add category");
+        $message = $status === 1 ? "Failed to add category to store" : "Failed to hide category"; // Fixed status comparison
+        redirect("addCategory.php", $message);
     }
 } else if (isset($_POST['update_category'])) {
     $category_id = $_POST['category_id'];
@@ -64,24 +71,39 @@ if (isset($_POST['add_category'])) {
     } else {
         redirect("editCategory.php?id=$category_id", "Update failed");
     }
-}
+}else  if (isset($_POST['status_change'])) {
+        $category_id = mysqli_real_escape_string($con, $_POST['category_id']);
 
+        $sql3 = "SELECT category_status FROM category WHERE category_id = '$category_id'";
+        $category = mysqli_query($con, $sql3);
+        $categoryData = mysqli_fetch_array($category);
 
-else if(isset($_POST['delete_category'])){
+        $newStatus = $categoryData['category_status'] === '1' ? '0' : '1';
+
+        $sql4 = "UPDATE category SET category_status = '$newStatus' WHERE category_id = '$category_id'";
+        $toggle = mysqli_query($con, $sql4);
+
+        if ($toggle) {
+            redirect("category.php", "Status changed");
+        } else {
+            redirect("category.php", "Failed to change status");
+        }
+}else if(isset($_POST['delete_category'])){
     $category_id = mysqli_real_escape_string($con,$_POST['category_id']);
-
-    $sql3 = "SELECT * FROM category WHERE category_id = '$category_id'";
-    $category = mysqli_query($con,$sql3);
+    
+    $sql4 = "SELECT * FROM category WHERE category_id = '$category_id'";
+    $category = mysqli_query($con,$sql4);
     $categoryData = mysqli_fetch_array($category);
-    $image = $categoryData['category_image'];
+    // $image = $categoryData['category_image'];
 
     $sql4 = "DELETE FROM category WHERE category_id = '$category_id'";
     $delete = mysqli_query($con,$sql4);
 
     if($delete){
-        if(file_exists("../Assets/".$image)){
-            unlink("../Assets/".$image);
-        }
+        // if(file_exists("../Assets/".$image)){
+        //     unlink("../Assets/".$image);
+
+        // }
         redirect("category.php","Category deleted successfully");
     }else{
         redirect("category.php","Delete failed");

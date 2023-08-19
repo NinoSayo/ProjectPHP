@@ -4,7 +4,7 @@ include("Includes/header.php");
 include("../Middleware/admin.php");
 include("../Functions/myFunction.php")
 ?>
-<main class="mt-5 pt-5">
+<main class="mt-2 pt-2">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -43,11 +43,7 @@ include("../Functions/myFunction.php")
                                             <label for="">Description:</label>
                                             <textarea name="description" placeholder="Enter description" class="form-control" cols="30" rows="10"><?= $data['category_descriptions'] ?></textarea>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="">Status</label>
-                                            <input type="checkbox" name="status" value="1" <?php if ($data['category_status'] == 1) echo "checked";?>>
-                                        </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 py-2">
                                             <button type="submit" class="btn btn-primary" name="update_category">Update</button>
                                         </div>
                                     </div>

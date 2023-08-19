@@ -13,7 +13,12 @@
           <a id="collectionLink" class="nav-link" href="categories.php">Collection</a>
         </li>
         <?php if (isset($_SESSION['auth'])) {
+          if($_SESSION['Role'] != 0){
         ?>
+        <li class="nav-item">
+            <a  class="nav-link" href="admin/index.php">Dashboard</i></a>
+          </li>
+          <?php }?>
           <li class="nav-item">
             <a id ="cartLink" class="nav-link" href="cart.php"><i class="bi bi-cart"></i></a>
           </li>
