@@ -1,0 +1,59 @@
+<?php
+session_start();
+include("Includes/header.php");
+include("../Middleware/admin.php");
+include("../Functions/myFunction.php")
+?>
+<main class="mt-2 pt-2">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <?php
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                    $brand = getByID("brands", $id);
+
+                    if (mysqli_num_rows($brand) > 0) {
+                        $data = mysqli_fetch_array($brand);
+                ?>
+                <div class="card card-theme bg-dark shadow-lg">
+                            <div class="card-header">
+                                <h4>Edit Category</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="code.php" method="POST" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="hidden" name="brand_id" value="<?= $data['brand_id'] ?>">
+                                            <label for="Name">Name:</label>
+                                            <input type="text" name="name" value="<?= $data['brand_name'] ?>" placeholder="Enter Category Name" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="Image">Brand Image:</label>
+                                            <input type="file" name="image" class="form-control">
+                                            <label for="Image">Current Image:</label>
+                                            <input type="hidden" name="old_image" value="<?= $data['brand_image']; ?>">
+                                            <img src="../Assets/<?= $data['brand_image']; ?>" height="50px" width="50px" alt="">
+                                        </div>
+                                        <div class="col-md-12 py-2">
+                                            <button type="submit" class="btn btn-primary" name="update_brand">Update</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                <?php
+                    } else {
+                        echo "Brand not found";
+                    }
+                } else {
+                    echo "ID not found!";
+                }
+                ?>
+            </div>
+        </div>
+</main>
+
+<?php
+include("Includes/footer.php");
+?>
