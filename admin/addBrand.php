@@ -23,10 +23,6 @@ include("Includes/header.php");
                                     <label class="mb-0" for="Image">Brand Image:</label>
                                     <input type="file" name="image" multiple id="input-image" class="form-control mb-2">
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="Status" class="mb-0">Status</label>
-                                    <input type="checkbox" name="status" id="">
-                                </div>
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary" name="add_brand">Save</button>
                                 </div>

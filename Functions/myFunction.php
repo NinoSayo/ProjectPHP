@@ -11,7 +11,7 @@ function getAll($table)
 function getByID($table, $id)
 {
     global $con;
-    $sql = "SELECT * FROM $table WHERE $id = '$id'";
+    $sql = "SELECT * FROM $table WHERE category_id = '$id'";
     return $run = mysqli_query($con, $sql);
 }
 
