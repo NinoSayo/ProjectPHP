@@ -13,7 +13,7 @@ include("Includes/header.php");
                         <h4>Products</h4>
                     </div>
                     <div class="card-body" id = "products_table">
-                        <table class="table table-bordered text-white">
+                        <table class="table table-bordered table-striped text-white">
                             <thead>
                                 <tr>
                                     <th>ID</th>

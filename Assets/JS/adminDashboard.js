@@ -64,3 +64,4 @@ function changeTheme(theme) {
         localStorage.setItem('theme', 'light-theme');
     }
 }
+

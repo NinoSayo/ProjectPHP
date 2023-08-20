@@ -33,28 +33,6 @@
                 </li>
                 <li>
                 <p class="gap-1">
-                        <a class="nav-link px-3 pt-3 sidebar-link" data-bs-toggle="collapse" href="#collapseBrand" role="button" aria-expanded="false" aria-controls="collapseCategory">
-                            <span class="me-2"><i class="bi bi-laptop"></i></span>
-                            <span>Brand</span>
-                            <span class="ms-auto right-icon"><i class="bi bi-chevron-down"></i></span>
-                        </a>
-                    <div class="collapse" id="collapseBrand">
-                        <div>
-                            <ul class="navbar-nav ps-3">
-                                <li>
-                                    <a href="brand.php" class="nav-link px-3">
-                                        <span>Brand List</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="AddBrand.php" class="nav-link px-3">
-                                        <span>Add Brand</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                <p class="gap-1">
                         <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="false" aria-controls="collapseCategory">
                             <span class="me-2"><i class="bi bi-card-list"></i></span>
                             <span>Categories</span>
