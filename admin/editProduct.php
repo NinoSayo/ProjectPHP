@@ -54,7 +54,7 @@ if (isset($_GET['id']) && isset($_GET['image_id'])) {
                                                         if ($image['product_id'] == $id)
                                                 ?>
                                                         <div>
-                                                            <input type="checkbox" name="old_images[]" value="<?= $image['image_id']; ?>" id = "image_<?=$image['image_id'];?>">
+                                                            <input type="hidden" name="old_images[]" value="<?= $image['image_id']; ?>" id = "image_<?=$image['image_id'];?>">
                                                             <img src="../Assets/<?= $image['image_source']; ?>" height="50px" width="50px">
                                                         </div>
                                                     <?php

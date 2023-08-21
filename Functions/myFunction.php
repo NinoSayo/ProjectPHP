@@ -91,6 +91,21 @@ function getProductsWithImages($product_id = null)
     return $data;
 }
 
+function getProductImages($product_id) {
+    global $con;
+    $product_id = mysqli_real_escape_string($con, $product_id);
+    
+    $sql = "SELECT * FROM product_image WHERE product_id = '$product_id'";
+    $result = mysqli_query($con, $sql);
+    
+    $images = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $images[] = $row;
+    }
+    
+    return $images;
+}
+
 function associateProductImage($product_id, $image_filename, $con) {
     $sql = "INSERT INTO product_image (product_id, image_source) VALUES ('$product_id', '$image_filename')";
     mysqli_query($con, $sql);

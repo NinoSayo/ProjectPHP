@@ -8,11 +8,11 @@ include("Includes/header.php");
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-            <div class="card card-theme bg-dark shadow-lg">
+                <div class="card card-theme bg-dark shadow-lg">
                     <div class="card-header">
                         <h4>Products</h4>
                     </div>
-                    <div class="card-body" id = "products_table">
+                    <div class="card-body" id="products_table">
                         <table class="table table-bordered text-white">
                             <thead>
                                 <tr>
@@ -30,31 +30,47 @@ include("Includes/header.php");
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php
+                                <?php
                                 $products = getProductsWithImages();
                                 if (count($products) > 0) {
-                                    foreach ($products as $items) {
+                                    $previousProductId = null; // Keep track of the previous product ID
+
+                                    foreach ($products as $product) {
+                                        if ($previousProductId !== $product['product_id']) {
+                                            // Display product information
                                 ?>
-                                        <tr>
-                                            <td><?= $items['product_id']; ?></td>
-                                            <td><img src="../Assets/<?= $items['image_source']; ?>" width="50px" height="50px" alt=""></td>
-                                            <td><?= $items['product_name']; ?></td>
-                                            <td><?= $items['product_slug']; ?></td>
-                                            <td><?= $items['product_quantity']; ?></td>
-                                            <td><?= $items['product_price']; ?></td>
-                                            <td><?= $items['product_descriptions']; ?></td>
-                                            <td><?= getCategoryName($items['category_id']); ?></td>
-                                            <td><?=$items['product_status'] == '1' ? 'Visible' : 'Hidden' ?></td>
-                                            <td>
-                                            <a href="editProduct.php?id=<?= $items['product_id']; ?>&image_id=<?= $items['image_id']; ?>" class="btn btn-sm btn-primary">Edit</a>
-                                            </td>
-                                            <td>
-                                            <form action="code.php" method="POST">
-                                                    <input type="hidden" name="product_id" value="<?= $items['product_id']; ?>">
-                                                    <button type="submit" class="btn btn-sm btn-danger" name="delete_product">Delete</button>
-                                                </form>                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td><?= $product['product_id']; ?></td>
+                                                <td>
+                                                    <?php
+                                                    // Display images for the current product
+                                                    $productImages = getProductImages($product['product_id']);
+                                                    foreach ($productImages as $image) {
+                                                        echo '<img src="../Assets/' . $image['image_source'] . '" width="50px" height="50px" alt="">';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <!-- Display other product data -->
+                                                <td><?= $product['product_name']; ?></td>
+                                                <td><?= $product['product_slug']; ?></td>
+                                                <td><?= $product['product_quantity']; ?></td>
+                                                <td><?= $product['product_price']; ?></td>
+                                                <td><?= $product['product_descriptions']; ?></td>
+                                                <td><?= getCategoryName($product['category_id']); ?></td>
+                                                <td><?= $product['product_status'] == '1' ? 'Visible' : 'Hidden' ?></td>
+                                                <td>
+                                                    <a href="editProduct.php?id=<?= $product['product_id']; ?>&image_id=<?= $product['image_id']; ?>" class="btn btn-sm btn-primary">Edit</a>
+                                                </td>
+                                                <td>
+                                                    <form action="code.php" method="POST">
+                                                        <input type="hidden" name="product_id" value="<?= $product['product_id']; ?>">
+                                                        <button type="submit" class="btn btn-sm btn-danger" name="delete_product">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
                                 <?php
+                                            $previousProductId = $product['product_id'];
+                                        }
                                     }
                                 } else {
                                     echo "No record found";

@@ -39,39 +39,51 @@ include("Includes/header.php");
                 </div>
             </div>
         </div>
+    </div>
 
-        <?php
-        $items = getCartItems();
-        $numItems = mysqli_num_rows($items);
-        ?>
-        <div class="py-5">
-            <div class="card">
-                <div class="row">
-                    <div class="col-md-8 cart">
-                        <div class="title">
-                            <div class="row">
-                                <div class="col">
-                                    <h4><b>Shopping Cart</b></h4>
-                                </div>
-                                <div class="col align-self-center text-right text-muted">
-                                    <?php if (mysqli_num_rows($items) > 0) {
-                                        echo $numItems;
-                                    } else {
-                                        echo "0";
-                                    } ?> item(s) in cart</div>
+    <?php
+    $items = getCartItems();
+    $numItems = mysqli_num_rows($items);
+
+    if ($numItems > 0) {
+        $groupedItems = array(); 
+
+foreach ($items as $item) {
+    $productId = $item['pid'];
+    if (!isset($groupedItems[$productId])) {
+        $groupedItems[$productId] = array(
+            'product' => $item,
+            'quantity' => 0
+        );
+    }
+    $groupedItems[$productId]['quantity'] += $item['product_qty'];
+}
+    ?>
+
+    <div class="py-5">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-8 cart">
+                    <div class="title">
+                        <div class="row">
+                            <div class="col">
+                                <h4><b>Shopping Cart</b></h4>
                             </div>
                         </div>
-                        <div id="myCart">
-                            <?php
-                            if (mysqli_num_rows($items) > 0) {
-                            ?>
-                                <div id="">
-                                    <?php
-                                    foreach ($items as $item) {
-                                    ?>
-                                        <div class="row border-top border-bottom product_data">
-                                            <div class="row main align-items-center">
-                                                <div class="col-2"><img class="img-fluid" src="Assets/<?= $item['image_source'] ?>"></div>
+                    </div>
+                    <div id="myCart">
+                        <?php
+                        if ($numItems > 0) {
+                            foreach ($groupedItems as $productId => $groupedItem) {
+                                $item = $groupedItem['product'];
+                                $quantity = $groupedItem['quantity'];
+                            }
+                                ?>
+                                <div class="row border-top border-bottom product_data">
+                                    <div class="row main align-items-center">
+                                        <div class="col-2">
+                                            <img class="img-fluid" src="Assets/<?= $item['image_source'] ?>">
+                                        </div>
                                                 <div class="col">
                                                     <div class="row text-muted" style="font-size:12px;"><?= $item['category_name'] ?></div>
                                                     <div class="row" style="font-size:18px;"><?= $item['product_name'] ?></div>
@@ -86,26 +98,26 @@ include("Includes/header.php");
                                                     </div>
                                                 </div>
                                                 <div class="col">&dollar;<?= $item['product_price'] ?><span class="close deleteItem" value="<?= $item['cid'] ?>"><i class="bi bi-trash3"></i></span></div>
-                                            </div>
-                                        </div>
-                                    <?php
-                                    }
-                                    ?>
+                                                </div>
                                 </div>
-                            <?php
-                            } else {
-                            ?>
-                                <div class="card card-body text-center" style="box-shadow: none; background-color: #ddd; ">
-                                    <h4 class="py-3" style="color: red;">Your cart is empty</h4>
-                                </div>
-                            <?php
+                                <?php
                             }
+                        } else {
                             ?>
-                        </div>
-                        <div class="back-to-shop"><a href="#"><i class="bi bi-arrow-left"></i></a><span class="text-muted">Back to Shop</span></div>
+                            <div class="card card-body text-center" style="box-shadow: none; background-color: #ddd;">
+                                <h4 class="py-3" style="color: red;">Your cart is empty</h4>
+                            </div>
+                            <?php
+                        }
+                        ?>
                     </div>
-                    <div class="col-md-4 summary">
-                        <div>
+                    <div class="back-to-shop">
+                        <a href="#"><i class="bi bi-arrow-left"></i></a>
+                        <span class="text-muted">Back to Shop</span>
+                    </div>
+                </div>
+                <div class="col-md-4 summary">
+                    <div>
                             <h5><b>Summary</b></h5>
                         </div>
                         <hr>
@@ -117,13 +129,15 @@ include("Includes/header.php");
                             <p>DISCOUNT</p>
                             <input type="text" id="code" placeholder="Enter promo code">
                         </form>
-                        <?php if (mysqli_num_rows($items) > 0) { ?>
-                            <button class="btn checkout-btn" onclick="location.href='checkout.php'"><i class="bi bi-cart-check"></i> CHECKOUT</button>
-                        <?php } else { ?>
-                            <button class="btn checkout-btn" disabled><i class="bi bi-cart-check"></i> CHECKOUT</button>
-                        <?php } ?>
-
-                        
+                        <?php if ($numItems > 0) { ?>
+                        <button class="btn checkout-btn" onclick="location.href='checkout.php'">
+                            <i class="bi bi-cart-check"></i> CHECKOUT
+                        </button>
+                    <?php } else { ?>
+                        <button class="btn checkout-btn" disabled>
+                            <i class="bi bi-cart-check"></i> CHECKOUT
+                        </button>
+                    <?php } ?>
                     </div>
                 </div>
             </div>
