@@ -13,7 +13,7 @@ include("Includes/header.php");
                         <h4>Products</h4>
                     </div>
                     <div class="card-body" id = "products_table">
-                        <table class="table table-bordered text-white">
+                        <table class="table table-bordered table-striped text-white">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -46,7 +46,7 @@ include("Includes/header.php");
                                             <td><?= getCategoryName($items['category_id']); ?></td>
                                             <td><?=$items['product_status'] == '1' ? 'Visible' : 'Hidden' ?></td>
                                             <td>
-                                            <a href="editProduct.php?id=<?= $items['product_id']; ?>&image_id=<?= $items['image_id']; ?>" class="btn btn-sm btn-primary">Edit</a>
+                                                <a href="editProduct.php?id=<?= $items['product_id']; ?>" class="btn btn-sm btn-primary">Edit</a>
                                             </td>
                                             <td>
                                             <form action="code.php" method="POST">
