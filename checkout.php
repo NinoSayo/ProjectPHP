@@ -4,6 +4,12 @@ include("Functions/userFunction.php");
 include("Functions/redirect.php");
 include("Functions/authenticate.php");
 include("Includes/header.php");
+$items = getCartItems();
+$numItems = mysqli_num_rows($items);
+if ($numItems === 0) {
+    redirect("cart.php","You don't have any items in cart"); // Redirect to cart page if cart is empty
+}
+
 
 ?>
 
