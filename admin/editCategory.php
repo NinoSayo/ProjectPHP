@@ -16,7 +16,7 @@ include("../Functions/myFunction.php")
                     if (mysqli_num_rows($category) > 0) {
                         $data = mysqli_fetch_array($category);
                 ?>
-                <div class="card card-theme bg-dark shadow-lg">
+                        <div class="card card-theme bg-dark shadow-lg">
                             <div class="card-header">
                                 <h4>Edit Category</h4>
                             </div>
@@ -39,13 +39,14 @@ include("../Functions/myFunction.php")
                                             <input type="hidden" name="old_image" value="<?= $data['category_image']; ?>">
                                             <img src="../Assets/<?= $data['category_image']; ?>" height="50px" width="50px" alt="">
                                         </div>
+                                        <div class="col-md-6 py-2">
+                                            <label for="Status">Status:</label>
+                                            <input type="radio" name="status" value="1" id="status_visible" <?php if($data['category_status'] == 1) echo "checked" ?>> Put on store
+                                            <input type="radio" name="status" value="0" id="status_hidden" <?php if($data['category_status'] == 0) echo "checked" ?>> Hidden
+                                        </div>
                                         <div class="col-md-12">
                                             <label for="">Description:</label>
                                             <textarea name="description" placeholder="Enter description" class="form-control" cols="30" rows="10"><?= $data['category_descriptions'] ?></textarea>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="">Status</label>
-                                            <input type="checkbox" name="status" value="1" <?php if ($data['category_status'] == 1) echo "checked";?>>
                                         </div>
                                         <div class="col-md-12">
                                             <button type="submit" class="btn btn-primary" name="update_category">Update</button>

@@ -35,6 +35,11 @@ include("Includes/header.php");
                                     <label class="mb-0" for="">Price:</label>
                                     <input type="number" step="0.01" name="price" placeholder="Enter price" class="form-control mb-2">
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="Status">Status:</label>
+                                    <input type="radio" name="status" value = "1" checked> Put on store 
+                                    <input type="radio" name="status" value = "0"> Hidden
+                                </div>
                                 <div class="col-md-12">
                                 <label class="mb-0">Description:</label>
                                 <textarea name="description" placeholder="Enter description" class="form-control mb-2" cols="30" rows="9"></textarea>
@@ -57,10 +62,6 @@ include("Includes/header.php");
                                         ?>
                                     </select>
                                 </div>
-                                <div class="col-md-6">
-                                <label for="">Status</label>
-                                <input type="checkbox" name="status" id="">
-                            </div>
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary" name="add_product">Save</button>
                                 </div>
