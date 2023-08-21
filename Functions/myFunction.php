@@ -73,7 +73,7 @@ function validateUploadFile($file, $uploadPath)
 function getProductsWithImages($product_id = null)
 {
     global $con;
-    $sql = "SELECT product.product_id, product.product_name, product.product_slug ,product.product_quantity, product.product_price, product.product_status,product.product_descriptions, product.category_id, product_image.image_source
+    $sql = "SELECT product.product_id, product.product_name, product.product_slug ,product.product_quantity, product.product_price, product.product_status,product.product_descriptions, product.category_id, product_image.image_id ,product_image.image_source
             FROM product
             INNER JOIN product_image ON product.product_id = product_image.product_id";
 
