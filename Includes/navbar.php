@@ -25,7 +25,7 @@
               <li><a class="dropdown-item disabled" aria-disabled="true"><?= $_SESSION['auth_user']['username']?></a></li>
               <hr>
               <li><a class="dropdown-item" href="#">Regular link</a></li>
-              <li><a class="dropdown-item" href="listOrder.php">Your order</a></li>
+              <li><a class="dropdown-item" href="myOrder.php">Your order</a></li>
               <li><a class="dropdown-item" href="logout.php">Logout</a></li>
             </ul>
           </li>
@@ -56,12 +56,7 @@
   };
 
   for (var linkID in navigationLink) {
-    console.log("Link ID:", linkID);
-    console.log("Navigation Link:", navigationLink[linkID]);
-    console.log("Current Page:", currentPage);
-
     if (currentPage.endsWith(navigationLink[linkID])) {
-      console.log("Matching Link Found!");
       document.getElementById(linkID).classList.add("active");
     }
   }

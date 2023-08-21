@@ -46,18 +46,19 @@ include("Includes/header.php");
     $numItems = mysqli_num_rows($items);
 
     if ($numItems > 0) {
-        $groupedItems = array(); 
+        $groupedItems = array();
 
-foreach ($items as $item) {
-    $productId = $item['pid'];
-    if (!isset($groupedItems[$productId])) {
-        $groupedItems[$productId] = array(
-            'product' => $item,
-            'quantity' => 0
-        );
+        foreach ($items as $item) {
+            $productId = $item['pid'];
+            if (!isset($groupedItems[$productId])) {
+                $groupedItems[$productId] = array(
+                    'product' => $item,
+                    'quantity' => 0
+                );
+            }
+            $groupedItems[$productId]['quantity'] += $item['product_qty'];
+        }
     }
-    $groupedItems[$productId]['quantity'] += $item['product_qty'];
-}
     ?>
 
     <div class="py-5">
@@ -69,6 +70,9 @@ foreach ($items as $item) {
                             <div class="col">
                                 <h4><b>Shopping Cart</b></h4>
                             </div>
+                            <div class="col align-self-center text-right text-muted">
+                                <?php echo $numItems; ?> item(s) in cart
+                            </div>
                         </div>
                     </div>
                     <div id="myCart">
@@ -77,7 +81,6 @@ foreach ($items as $item) {
                             foreach ($groupedItems as $productId => $groupedItem) {
                                 $item = $groupedItem['product'];
                                 $quantity = $groupedItem['quantity'];
-                            }
                                 ?>
                                 <div class="row border-top border-bottom product_data">
                                     <div class="row main align-items-center">
