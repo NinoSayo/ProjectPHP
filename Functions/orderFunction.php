@@ -14,19 +14,8 @@ if (isset($_SESSION['auth'])) {
         $address = mysqli_real_escape_string($con, $_POST['address']);
         $city = mysqli_real_escape_string($con, $_POST['city']);
         $pin = mysqli_real_escape_string($con, $_POST['pin']);
-        $payment_id = mysqli_real_escape_string($con,$_POST['payment_id']);
         $payment_method = mysqli_real_escape_string($con,$_POST['payment_method']);
         
-        if($payment_method === "momo"){
-            $payment_id = 1;
-        }else if($payment_method === "paypal"){
-            $payment_id = 2;
-        }else if($payment_method === "credit_card"){
-            $payment_id = 3;
-        }else if($payment_method === "cod"){
-            $payment_id = 4;
-        }
-
         if (empty($firstname) || empty($lastname) || empty($phone) || empty($email) || empty($country) || empty($address) || empty($city) || empty($pin)) {
             $_SESSION['message'] = "All fields must be filled";
         
@@ -46,11 +35,9 @@ if (isset($_SESSION['auth'])) {
 
         // Retrieve cart items
         $userID = $_SESSION['auth_user']['id'];
-        $sql1 = "SELECT c.cart_id as cid, c.product_id as pid, c.product_qty, p.product_name, p.product_price, pi.image_source, cat.category_name
+        $sql1 = "SELECT c.cart_id as cid, c.product_id as pid, c.product_qty, p.product_name, p.product_price
         FROM carts c
-        JOIN product p ON c.product_id = p.product_id
-        JOIN product_image pi ON p.product_id = pi.product_id
-        JOIN category cat on p.category_id = cat.category_id
+        LEFT JOIN product p ON c.product_id = p.product_id
         WHERE user_id = '$userID'
         ORDER BY c.cart_id DESC";
 
@@ -67,8 +54,8 @@ if (isset($_SESSION['auth'])) {
         $shipping_lastname = $lastname;
 
         // Insert order into the database
-        $sql2 = "INSERT INTO orders(user_id, shipping_firstname, shipping_lastname, shipping_phone, shipping_email, shipping_country, shipping_address, shipping_city, shipping_pin, total_price, payment_method, payment_id) 
-        VALUES ('$user_id', '$shipping_firstname', '$shipping_lastname', '$phone', '$email', '$country', '$address', '$city', '$pin', '$totalPrice', '$payment_method', '$payment_id')";
+        $sql2 = "INSERT INTO orders(user_id, shipping_firstname, shipping_lastname, shipping_phone, shipping_email, shipping_country, shipping_address, shipping_city, shipping_pin, total_price, payment_method) 
+        VALUES ('$user_id', '$shipping_firstname', '$shipping_lastname', '$phone', '$email', '$country', '$address', '$city', '$pin', '$totalPrice', '$payment_method')";
         $orderInsert = mysqli_query($con,$sql2);
 
         if ($orderInsert) {

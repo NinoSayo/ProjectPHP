@@ -7,7 +7,7 @@ include("Includes/header.php");
 $items = getCartItems();
 $numItems = mysqli_num_rows($items);
 if ($numItems === 0) {
-    redirect("cart.php","You don't have any items in cart"); // Redirect to cart page if cart is empty
+    redirect("cart.php", "You don't have any items in cart"); // Redirect to cart page if cart is empty
 }
 
 
@@ -106,46 +106,46 @@ if ($numItems === 0) {
                         <div class="back-to-shop"><a href="#"><i class="bi bi-arrow-left"></i></a><span class="text-muted">Back to Shop</span></div>
                     </div>
                     <?php
-$items = getCartItems();
-$productSummaries = array(); // Initialize an array to hold product summaries
+                    $items = getCartItems();
+                    $productSummaries = array(); // Initialize an array to hold product summaries
 
-foreach ($items as $item) {
-    $productId = $item['pid'];
-    if (!isset($productSummaries[$productId])) {
-        // Initialize product summary
-        $productSummaries[$productId] = array(
-            'image_source' => $item['image_source'],
-            'product_name' => $item['product_name'],
-            'product_qty' => $item['product_qty'],
-            'product_total_price' => $item['product_price'] * $item['product_qty']
-        );
-    } else {
-        // Accumulate quantities and total price for the same product
-        $productSummaries[$productId]['product_qty'] += $item['product_qty'];
-        $productSummaries[$productId]['product_total_price'] += $item['product_price'] * $item['product_qty'];
-    }
-}
+                    foreach ($items as $item) {
+                        $productId = $item['pid'];
+                        if (!isset($productSummaries[$productId])) {
+                            // Initialize product summary
+                            $productSummaries[$productId] = array(
+                                'image_source' => $item['image_source'],
+                                'product_name' => $item['product_name'],
+                                'product_qty' => $item['product_qty'],
+                                'product_total_price' => $item['product_price'] * $item['product_qty']
+                            );
+                        } else {
+                            // Accumulate quantities and total price for the same product
+                            $productSummaries[$productId]['product_qty'] += $item['product_qty'];
+                            $productSummaries[$productId]['product_total_price'] += $item['product_price'] * $item['product_qty'];
+                        }
+                    }
 
-$totalPrice = 0;
-?>
-<div class="col-md-4 summary">
-    <div>
-        <h5><b>Summary</b></h5>
-    </div>
-    <hr>
+                    $totalPrice = 0;
+                    ?>
+                    <div class="col-md-4 summary">
+                        <div>
+                            <h5><b>Summary</b></h5>
+                        </div>
+                        <hr>
 
-    <?php foreach ($productSummaries as $productId => $summary): ?>
-        <div class="row align-items-center">
-            <div class="col-3"><img class="img-fluid" src="Assets/<?= $summary['image_source'] ?>"></div>
-            <div class="col">
-                <div class="row" style="font-size: 16px; padding-left: 20px;"><?= $summary['product_name'] ?></div>
-                <div class="row text-muted" style="font-size: 12px; padding-left: 18px;">x <?= $summary['product_qty'] ?></div>
-            </div>
-            <div class="col text-right" style="padding-left: 100px;">&dollar;<?= $summary['product_total_price'] ?></div>
-        </div>
-        <hr>
-        <?php $totalPrice += $summary['product_total_price']; ?>
-    <?php endforeach; ?>
+                        <?php foreach ($productSummaries as $productId => $summary) : ?>
+                            <div class="row align-items-center">
+                                <div class="col-3"><img class="img-fluid" src="Assets/<?= $summary['image_source'] ?>"></div>
+                                <div class="col">
+                                    <div class="row" style="font-size: 16px; padding-left: 20px;"><?= $summary['product_name'] ?></div>
+                                    <div class="row text-muted" style="font-size: 12px; padding-left: 18px;">x <?= $summary['product_qty'] ?></div>
+                                </div>
+                                <div class="col text-right" style="padding-left: 100px;">&dollar;<?= $summary['product_total_price'] ?></div>
+                            </div>
+                            <hr>
+                            <?php $totalPrice += $summary['product_total_price']; ?>
+                        <?php endforeach; ?>
                         <div>
                             <p>SHIPPING</p>
                             <select>

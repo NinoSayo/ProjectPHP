@@ -28,11 +28,10 @@ include("Includes/header.php");
     <div class="card">
         <div class="row">
             <div class="col-md-8 cart">
-                <table class="table table-bordered table-striped text-center">
+                <table class="table table-bordered text-center">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Product Name</th>
                             <th>Price</th>
                             <th>Payment</th>
                             <th>Date of Issue</th>
@@ -40,24 +39,20 @@ include("Includes/header.php");
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
                     <?php
-            $orders = getOrderDetails();
+                    $orders = getOrderDetails();
 
-            if (mysqli_num_rows($orders) > 0) {
-                $previousOrderID = null; // To keep track of the previous order ID
-
-                while ($item = mysqli_fetch_assoc($orders)) {
-                    if ($item['order_id'] !== $previousOrderID) { // Print order details only once
-                        $previousOrderID = $item['order_id'];
-            ?>
-                        <tr>
-                            <td class="vertical-middle"><?= $item['order_id'] ?></td>
-                            <td class="vertical-middle"><?= $item['product_name'] ?></td>
-                            <td class="vertical-middle"><?= $item['total_price'] ?></td>
-                            <td class="vertical-middle"><?= strtoupper($item['payment_method']) ?></td>
-                            <td class="vertical-middle"><?= $item['create_at'] ?></td>
-                            <td class="vertical-middle">
+                    if (mysqli_num_rows($orders) > 0) {
+                        foreach ($orders as $item) {
+                    ?>
+                            <tbody>
+                                <div id="myOrder">
+                                    <tr>
+                                        <td class="vertical-middle"><?= $item['order_id'] ?></td>
+                                        <td class="vertical-middle"><?= $item['total_price'] ?></td>
+                                        <td class="vertical-middle"><?= strtoupper($item['payment_method']) ?></td>
+                                        <td class="vertical-middle"><?= $item['create_at'] ?></td>
+                                        <td class="vertical-middle">
                                             <span class="status-dot" style="background-color:
         <?= $item['order_status'] == '1' ? 'green' : ($item['order_status'] == '2' ? 'blue' : ($item['order_status'] == '3' ? 'purple' : ($item['order_status'] == '4' ? 'red' : ($item['order_status'] == '5' ? 'orange' : ($item['order_status'] == '6' ? 'yellow' : ($item['order_status'] == '7' ? 'pink' : ($item['order_status'] == '8' ? 'teal' : ($item['order_status'] == '9' ? 'brown' : ($item['order_status'] == '10' ? 'gray' : 'aqua'))))))))) ?>"></span>
                                             <?= $item['order_status'] == '1' ? 'Packing Process' : ($item['order_status'] == '2' ? 'Shipped' : ($item['order_status'] == '3' ? 'Delivered' : ($item['order_status'] == '4' ? 'Cancelled' : ($item['order_status'] == '5' ? 'Refunded' : ($item['order_status'] == '6' ? 'Returned' : ($item['order_status'] == '7' ? 'On Hold' : ($item['order_status'] == '8' ? 'Backordered' : ($item['order_status'] == '9' ? 'Payment Pending' : ($item['order_status'] == '10' ? 'Completed' : 'Pending'))))))))) ?>
@@ -67,22 +62,21 @@ include("Includes/header.php");
                                             <?php if ($item['order_status'] != '4') { ?>
                                                 <a href="#" class="cancel-link" data-order-id="<?= $item['order_id'] ?>" style="color: red;">
                                                     <i class="bi bi-x-circle"></i><span class="cancel-text">Cancel</span>
-                                                </a>  <?php } ?>
-                            </td>
-                        </tr>
-            <?php
-                    }
-                }
-            } else {
-            ?>
+                                                </a> <?php } ?>
+                                        </td>
+                                    </tr>
+                                <?php
+                            }
+                        } else {
+                                ?>
                                 <tr>
                                     <td colspan="7">No Order Founds</td>
                                 </tr>
                             <?php
-                            }
+                        }
                             ?>
-                        </div>
-                    </tbody>
+                                </div>
+                            </tbody>
                 </table>
                 <div id="myCart">
 
@@ -97,7 +91,6 @@ include("Includes/header.php");
                 <div>
                     <?php
                     if (mysqli_num_rows($orders) > 0) {
-                        while ($item = mysqli_fetch_assoc($orders)) {
                     ?>
                         <p><strong>Name:</strong> <?= $item['shipping_firstname'] ?> <?= $item['shipping_lastname'] ?></p>
                         <p><strong>Phone:</strong> <?= $item['shipping_phone'] ?></p>
@@ -107,7 +100,6 @@ include("Includes/header.php");
                         <p><strong>City:</strong> <?= $item['shipping_city'] ?></p>
                         <p><strong>Postal Code:</strong> <?= $item['shipping_pin'] ?></p>
                     <?php
-                        }
                     }
                     ?>
                 </div>

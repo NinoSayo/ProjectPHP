@@ -3,6 +3,8 @@ session_start();
 include("../Middleware/admin.php");
 include("../Functions/myFunction.php");
 include("Includes/header.php");
+$requiredFields = ['category_id', 'name', 'slug', 'description', 'quantity', 'price', 'status'];
+
 ?>
 <main class="mt-2 pt-2">
     <div class="container-fluid">
@@ -14,6 +16,14 @@ include("Includes/header.php");
                     </div>
                     <div class="card-body">
                         <form action="code.php" method="POST" enctype="multipart/form-data">
+                        <div class="col-md-12">
+                            <!-- Display errors for each field -->
+                            <?php foreach ($requiredFields as $field) : ?>
+                                <?php if (isset($errors[$field])) : ?>
+                                    <div class="alert alert-danger"><?= $errors[$field] ?></div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="mb-0" for="Name">Name:</label>
@@ -71,6 +81,7 @@ include("Includes/header.php");
                 </div>
             </div>
         </div>
+        
 </main>
 
 <?php
