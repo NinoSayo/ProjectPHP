@@ -97,10 +97,6 @@ if ($numItems === 0) {
                                             <input type="text" name="city" value="<?php echo isset($_SESSION['input']['city']) ? $_SESSION['input']['city'] : ''; ?>" placeholder="">
                                         </div>
                                         <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                            <label class="field-label">State / County</label>
-                                            <input type="text" name="county" value="<?php echo isset($_SESSION['input']['country']) ? $_SESSION['input']['country'] : ''; ?>" placeholder="">
-                                        </div>
-                                        <div class="form-group col-md-12 col-sm-6 col-xs-12">
                                             <label class="field-label">Postal Code</label>
                                             <input type="text" name="pin" value="<?php echo isset($_SESSION['input']['pin']) ? $_SESSION['input']['pin'] : ''; ?>" placeholder="">
                                         </div>
