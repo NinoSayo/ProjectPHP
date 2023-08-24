@@ -14,7 +14,6 @@ if (isset($_POST['register-btn'])) {
     $sql1 = "SELECT * FROM users WHERE email = '$email' OR username = '$username' OR phone = '$phone'";
     $checkValidation = mysqli_query($con, $sql1);
 
-
     if (mysqli_num_rows($checkValidation) > 0) {
         $row = mysqli_fetch_assoc($checkValidation);
         if ($row['email'] === $email) {
