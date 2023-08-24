@@ -170,11 +170,13 @@ function getCart($table, $joinTable = null, $joinField = null, $joinOn = null) {
 function getOrderDetails(){
     global $con;
 
-    $sql = "SELECT o.*, oi.item_qty, oi.item_price, p.product_name, p.product_quantity, p.product_status, pi.image_source
-    FROM orders o, product_image
-    LEFT JOIN order_items oi ON o.order_id = oi.order_id
-    LEFT JOIN product p ON oi.product_id = p.product_id
-    //LEFT JOIN product_image pi ON p.product_id = pi.product_id
+    $sql = "SELECT o.*, oi.*, p.*,MIN(image_source) as image_sources
+    FROM orders o
+    JOIN order_items oi ON o.order_id = oi.order_id
+    JOIN product p ON oi.product_id = p.product_id
+    LEFT JOIN product_image pi ON p.product_id = pi.product_id
+    GROUP BY o.order_id, p.product_id
     ORDER BY o.create_at ASC";
-    return mysqli_query($con,$sql);
+    
+    return mysqli_query($con, $sql);
 }

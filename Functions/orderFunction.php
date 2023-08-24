@@ -53,9 +53,25 @@ if (isset($_SESSION['auth'])) {
         $shipping_firstname = $firstname;
         $shipping_lastname = $lastname;
 
+        function GenerateOrderNO($con){
+            $OrderNO = mt_rand(100000,999999);
+
+            $sql = "SELECT Order_NO FROM orders WHERE Order_NO = '$OrderNO'";
+            $result = mysqli_query($con,$sql);
+
+            while(mysqli_num_rows($result) > 0){
+                $orderNO = mt_rand(100000,999999);
+                $result = mysqli_query($con,$sql);
+            }
+
+            return $OrderNO;
+        }
+
+        $UniqueOrderNO = GenerateOrderNO($con);
+
         // Insert order into the database
-        $sql2 = "INSERT INTO orders(user_id, shipping_firstname, shipping_lastname, shipping_phone, shipping_email, shipping_country, shipping_address, shipping_city, shipping_pin, total_price, payment_method) 
-        VALUES ('$user_id', '$shipping_firstname', '$shipping_lastname', '$phone', '$email', '$country', '$address', '$city', '$pin', '$totalPrice', '$payment_method')";
+        $sql2 = "INSERT INTO orders(user_id, Order_NO ,shipping_firstname, shipping_lastname, shipping_phone, shipping_email, shipping_country, shipping_address, shipping_city, shipping_pin, total_price, payment_method) 
+        VALUES ('$user_id', '$UniqueOrderNO' ,'$shipping_firstname', '$shipping_lastname', '$phone', '$email', '$country', '$address', '$city', '$pin', '$totalPrice', '$payment_method')";
         $orderInsert = mysqli_query($con,$sql2);
 
         if ($orderInsert) {

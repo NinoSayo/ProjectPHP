@@ -11,14 +11,15 @@ if (isset($_GET['product'])) {
     if ($product) {
 ?>
 
-        <div class="py-3 bg-primary">
-            <div class="container">
-                <h6 class="text-white">
-                    <a class="text-white" href="categories.php">Home / </a>
-                    <a class="text-white" href="categories.php">Collection / </a>
-                    <?= $product['product_name']; ?>
-                </h6>
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p class="bread"><span><a href="index.php">Home</a></span> / <span>Collection / <?=$product['product_name'];?></span></p>
             </div>
+        </div>
+    </div>
+</div>
         </div>
         <div class="bg-light py-4">
             <div class="container product_data mt-3">

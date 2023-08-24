@@ -12,17 +12,17 @@ $category= mysqli_fetch_array($categoryData);
 if($category){
     $cid = $category['category_id'];
     ?>
-    
-    <div class ="py-3 bg-primary">
-        <div class="container">
-            <h6 class="text-white">
-                <a class ="text-white" href="categories.php">Home  </a> /
-                <a class ="text-white" href="categories.php">Collection </a> /
-           <?=$category['category_name'];?></h6>
+
+    <div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p class="bread"><span><a href="index.php">Home</a></span> / <span>Collection / <?=$category['category_name'];?></span></p>
+            </div>
         </div>
     </div>
-    
-    <div class="py-3">
+</div>
+    <div class="py-2">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6">

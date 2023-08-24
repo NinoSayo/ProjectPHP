@@ -38,7 +38,7 @@ function getProductsWithImages($product_id = null)
     global $con;
     $sql = "SELECT product.product_id, product.product_name, product.product_slug ,product.product_quantity, product.product_price, product.product_status,product.product_descriptions, product.category_id, product_image.image_source
             FROM product
-            INNER JOIN product_image ON product.product_id = product_image.product_id";
+            LEFT JOIN product_image ON product.product_id = product_image.product_id";
 
     if ($product_id !== null) {
         $product_id = mysqli_real_escape_string($con, $product_id);
@@ -78,8 +78,10 @@ function getOrderDetails(){
     global $con;
     $userID = $_SESSION['auth_user']['id'];
 
-    $sql = "SELECT *
+    $sql = "SELECT * , DATE(o.create_at) AS order_date , p.product_name, oi.item_qty
     FROM orders o
+    JOIN order_items OI ON o.order_id = oi.order_id
+    JOIN product p ON oi.product_id = p.product_id
     WHERE o.user_id = '$userID'
     ORDER BY o.create_at DESC";
     return mysqli_query($con,$sql);

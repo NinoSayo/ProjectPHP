@@ -9,21 +9,25 @@ include("Includes/header.php");
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-            <div class="card card-theme bg-dark shadow-lg">
+                <div class="card card-theme bg-dark shadow-lg">
                     <div class="card-header">
                         <h4>Order list</h4>
                     </div>
                     <div class="card-body">
+                        <div class="mb-3">
+                            <button class="btn btn-primary mr-2" id="btnAllOrders">All Orders</button>
+                            <button class="btn btn-success mr-2" id="btnDelivered">Delivered</button>
+                            <button class="btn btn-info mr-2" id="btnCompleted">Completed</button>
+                            <button class="btn btn-danger" id="btnCancelled">Cancelled</button>
+                        </div>
                         <table class="table table-bordered text-white">
                             <thead>
                                 <tr>
+                                    <th>Order NO</th>
                                     <th>User ID</th>
-                                    <th>Customer Name</th>
-                                    <th>Order ID</th>
                                     <th>Product Image</th>
                                     <th>Product Name</th>
                                     <th>Product Quantity</th>
-                                    <th>Total Price</th>
                                     <th>Order Status</th>
                                     <th>Date</th>
                                     <th>Payment Method</th>
@@ -39,20 +43,25 @@ include("Includes/header.php");
                                     foreach ($orders as $item) {
                                 ?>
                                         <tr>
-                                            <td><?= $item['user_id'] ?></td>
+                                            <td><?= $item['Order_NO'] ?></td>
                                             <td><?= $item['shipping_firstname'] ?> <?= $item['shipping_lastname'] ?></td>
-                                            <td><?= $item['order_id'] ?></td>
-                                            <td><img src="../Assets/<?= $item['image_source'] ?>" class="w-50" alt="Product Image"></td>
+                                            <td>
+                                                <?php
+                                                $image_sources = explode(',', $item['image_sources']);
+                                                foreach ($image_sources as $image_source) {
+                                                    echo '<img src="../Assets/' . $image_source . '" class="w-50" alt="Product Image">';
+                                                }
+                                                ?>
+                                            </td>
                                             <td class="vertical-middle"><?= $item['product_name'] ?></td>
                                             <td><?= $item['item_qty'] ?></td>
-                                            <td class="vertical-middle"><?= $item['total_price'] ?></td>
                                             <td class="vertical-middle">
                                                 <?= $item['order_status'] == '1' ? 'Packing Process' : ($item['order_status'] == '2' ? 'Shipped' : ($item['order_status'] == '3' ? 'Delivered' : ($item['order_status'] == '4' ? 'Cancelled' : ($item['order_status'] == '5' ? 'Refunded' : ($item['order_status'] == '6' ? 'Returned' : ($item['order_status'] == '7' ? 'On Hold' : ($item['order_status'] == '8' ? 'Backordered' : ($item['order_status'] == '9' ? 'Payment Pending' : ($item['order_status'] == '10' ? 'Completed' : 'Pending'))))))))) ?>
                                             </td>
-                                            <td class="vertical-middle"><?= $item['create_at'] ?></td>
+                                            <td class="vertical-middle"><?= DATE("d/m/Y",strtotime($item['create_at']))?></td>
                                             <td class="vertical-middle"><?= strtoupper($item['payment_method']) ?></td>
                                             <td class="vertical-middle">
-                                                <a href="#" class="check-link" data-order-id="<?= $item['order_id'] ?>">
+                                                <a href="orderdetail.php" class="detail-link" data-order-id="<?= $item['order_id'] ?>">
                                                     <i class="bi bi-check-circle"></i>
                                                 </a>
                                             </td>

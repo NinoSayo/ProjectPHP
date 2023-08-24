@@ -11,19 +11,15 @@ include("Includes/header.php");
         margin-top: 31px;
     }
 </style>
-<div class="py-3 bg-primary">
+<div class="breadcrumbs">
     <div class="container">
-        <h6 class="text-white">
-            <a class="text-white" href="index.php">
-                Home
-            </a> /
-            <a class="text-white" href="myOrder.php">
-                My Orders
-            </a>
-        </h6>
+        <div class="row">
+            <div class="col">
+                <p class="bread"><span><a href="index.php">Home</a></span> / <span>Order History</span></p>
+            </div>
+        </div>
     </div>
 </div>
-
 <div class="py-5">
     <div class="card">
         <div class="row">
@@ -31,9 +27,9 @@ include("Includes/header.php");
                 <table class="table table-bordered text-center">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Price</th>
-                            <th>Payment</th>
+                            <th>Order</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
                             <th>Date of Issue</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -48,18 +44,18 @@ include("Includes/header.php");
                             <tbody>
                                 <div id="myOrder">
                                     <tr>
-                                        <td class="vertical-middle"><?= $item['order_id'] ?></td>
-                                        <td class="vertical-middle"><?= $item['total_price'] ?></td>
-                                        <td class="vertical-middle"><?= strtoupper($item['payment_method']) ?></td>
-                                        <td class="vertical-middle"><?= $item['create_at'] ?></td>
+                                        <td class="vertical-middle"><?= $item['Order_NO'] ?></td>
+                                        <td class="vertical-middle"><?= $item['product_name'] ?></td>
+                                        <td class="vertical-middle"><?= strtoupper($item['total_price']) ?></td>
+                                        <td class="vertical-middle"><?= date("d/m/Y", strtotime($item['order_date']))?></td>
                                         <td class="vertical-middle">
                                             <span class="status-dot" style="background-color:
         <?= $item['order_status'] == '1' ? 'green' : ($item['order_status'] == '2' ? 'blue' : ($item['order_status'] == '3' ? 'purple' : ($item['order_status'] == '4' ? 'red' : ($item['order_status'] == '5' ? 'orange' : ($item['order_status'] == '6' ? 'yellow' : ($item['order_status'] == '7' ? 'pink' : ($item['order_status'] == '8' ? 'teal' : ($item['order_status'] == '9' ? 'brown' : ($item['order_status'] == '10' ? 'gray' : 'aqua'))))))))) ?>"></span>
-                                            <?= $item['order_status'] == '1' ? 'Packing Process' : ($item['order_status'] == '2' ? 'Shipped' : ($item['order_status'] == '3' ? 'Delivered' : ($item['order_status'] == '4' ? 'Cancelled' : ($item['order_status'] == '5' ? 'Refunded' : ($item['order_status'] == '6' ? 'Returned' : ($item['order_status'] == '7' ? 'On Hold' : ($item['order_status'] == '8' ? 'Backordered' : ($item['order_status'] == '9' ? 'Payment Pending' : ($item['order_status'] == '10' ? 'Completed' : 'Pending'))))))))) ?>
+                                            <?= $item['order_status'] == '1' ? 'Packing' : ($item['order_status'] == '2' ? 'Shipped' : ($item['order_status'] == '3' ? 'Delivered' : ($item['order_status'] == '4' ? 'Cancel Requested' : ($item['order_status'] == '5' ? 'Cancelled' : ($item['order_status'] == '6' ? 'Refunded' : ($item['order_status'] == '7' ? 'On Hold' : ($item['order_status'] == '8' ? 'Backordered' : ($item['order_status'] == '9' ? 'Payment Pending' : ($item['order_status'] == '10' ? 'Completed' : 'Pending'))))))))) ?>
                                         </td>
                                         <td class="vertical-middle">
-                                            <a href="#" class="details-link" style="color: blue;"><i class="bi bi-arrow-right-circle"></i><span class="details-text">View Details</span></a>
-                                            <?php if ($item['order_status'] != '4') { ?>
+                                            <a href="orderdetail.php" class="details-link" style="color: blue;"><i class="bi bi-arrow-right-circle"></i><span class="details-text">View Details</span></a>
+                                            <?php if ( $item['order_status'] != '2' && $item['order_status'] != '4') { ?>
                                                 <a href="#" class="cancel-link" data-order-id="<?= $item['order_id'] ?>" style="color: red;">
                                                     <i class="bi bi-x-circle"></i><span class="cancel-text">Cancel</span>
                                                 </a> <?php } ?>

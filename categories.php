@@ -16,7 +16,7 @@ include("Includes/header.php");
     </div>
 </div>
 
-<div class="py-5">
+<div class="py-2">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
