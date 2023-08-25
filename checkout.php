@@ -51,6 +51,12 @@ if ($numItems === 0) {
 
         <div class="py-5">
             <div class="card">
+                <?php
+                $userResult = getUserDetails();
+                if (mysqli_num_rows($userResult) > 0) {
+                    $user = mysqli_fetch_assoc($userResult);
+                }
+                ?>
                 <div class="row">
                     <div class="col-md-8 cart">
                         <div class="title">
@@ -64,19 +70,19 @@ if ($numItems === 0) {
                                     <div class="row check-out ">
                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                             <label>First Name</label>
-                                            <input type="text" name="fname" value="<?php echo isset($_SESSION['input']['fname']) ? $_SESSION['input']['fname'] : ''; ?>" placeholder="">
+                                            <input type="text" name="fname" value="<?php echo isset($user['first_name']) ? $user['first_name'] : ''; ?>" placeholder="">
                                         </div>
                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                             <label>Last Name</label>
-                                            <input type="text" name="lname" value="<?php echo isset($_SESSION['input']['lname']) ? $_SESSION['input']['lname'] : ''; ?>" placeholder="">
+                                            <input type="text" name="lname" value="<?php echo isset($user['last_name']) ? $user['last_name'] : ''; ?>" placeholder="">
                                         </div>
                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                             <label class="field-label">Phone</label>
-                                            <input type="text" name="phone" value="<?php echo isset($_SESSION['input']['phone']) ? $_SESSION['input']['phone'] : ''; ?>" placeholder="">
+                                            <input type="text" name="phone" value="<?php echo isset($user['phone']) ? $user['phone'] : ''; ?>" placeholder="">
                                         </div>
                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                             <label class="field-label">Email Address</label>
-                                            <input type="email" name="email" value="<?php echo isset($_SESSION['input']['email']) ? $_SESSION['input']['email'] : ''; ?>" placeholder="">
+                                            <input type="email" name="email" value="<?php echo isset($user['email']) ? $user['email'] : ''; ?>" placeholder="">
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <label class="field-label">Country</label>

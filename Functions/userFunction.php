@@ -73,18 +73,44 @@ function getCartItems() {
     return mysqli_query($con, $sql);
 }
 
+function getUserDetails(){
+    global $con;
+    $userID = $_SESSION['auth_user']['id'];
+
+    $sql = "SELECT * FROM users WHERE id = '$userID'";
+    return mysqli_query($con,$sql);
+}
+
 
 function getOrderDetails(){
     global $con;
     $userID = $_SESSION['auth_user']['id'];
 
-    $sql = "SELECT * , DATE(o.create_at) AS order_date , p.product_name, oi.item_qty
+    $sql = "SELECT * , DATE(o.create_at) AS order_date
     FROM orders o
-    JOIN order_items OI ON o.order_id = oi.order_id
-    JOIN product p ON oi.product_id = p.product_id
     WHERE o.user_id = '$userID'
     ORDER BY o.create_at DESC";
     return mysqli_query($con,$sql);
     
+}
+
+function getOrderbyID($id)
+{
+    global $con;
+    $sql = "SELECT * FROM orders o
+    JOIN order_items oi on o.order_id = oi.order_id
+    JOIN product p on oi.product_id = p.product_id
+    LEFT JOIN product_image pi on oi.product_id = pi.product_id
+    WHERE o.order_id = '$id'";
+    return $run = mysqli_query($con, $sql);
+}
+
+function CheckValid($OrderNO){
+    global $con;
+    $userID = $_SESSION['auth_user']['id'];
+
+    $sql = "SELECT * FROM orders WHERE Order_NO = '$OrderNO' and user_id = '$userID'";
+    
+    return mysqli_query($con,$sql);
 }
 ?>

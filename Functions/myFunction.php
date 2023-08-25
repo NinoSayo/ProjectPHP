@@ -68,19 +68,20 @@ function validateUploadFile($file, $uploadPath)
     return $file;
 }
 
-// myFunction.php
-
 function getProductsWithImages($product_id = null)
 {
     global $con;
-    $sql = "SELECT product.product_id, product.product_name, product.product_slug ,product.product_quantity, product.product_price, product.product_status,product.product_descriptions, product.category_id, product_image.image_id ,product_image.image_source
+    
+    $sql = "SELECT product.product_id, product.product_name, product.product_slug, product.product_quantity, product.product_price, product.product_status, product.product_descriptions, product.category_id, product_image.image_id, product_image.image_source
             FROM product
             INNER JOIN product_image ON product.product_id = product_image.product_id";
-
+    
     if ($product_id !== null) {
         $product_id = mysqli_real_escape_string($con, $product_id);
         $sql .= " WHERE product.product_id = '$product_id'";
     }
+
+    $sql .= " ORDER BY product.product_id DESC";
 
     $result = mysqli_query($con, $sql);
 
@@ -88,6 +89,7 @@ function getProductsWithImages($product_id = null)
     while ($row = mysqli_fetch_assoc($result)) {
         $data[] = $row;
     }
+
     return $data;
 }
 
@@ -179,4 +181,10 @@ function getOrderDetails(){
     ORDER BY o.create_at ASC";
     
     return mysqli_query($con, $sql);
+}
+
+function getAllOrder(){
+    global $con;
+    $sql = "SELECT * FROM orders WHERE status = '1' ";
+    return mysqli_query($con,$sql);
 }

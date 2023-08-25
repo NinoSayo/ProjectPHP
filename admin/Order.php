@@ -61,8 +61,8 @@ include("Includes/header.php");
                                             <td class="vertical-middle"><?= DATE("d/m/Y",strtotime($item['create_at']))?></td>
                                             <td class="vertical-middle"><?= strtoupper($item['payment_method']) ?></td>
                                             <td class="vertical-middle">
-                                                <a href="orderdetail.php" class="detail-link" data-order-id="<?= $item['order_id'] ?>">
-                                                    <i class="bi bi-check-circle"></i>
+                                                <a href="orderdetail.php?id=<?=$item['Order_NO']?>" class="detail-link" data-order-id="<?= $item['order_id'] ?>">
+                                                <i class="bi bi-arrow-right-circle"></i>
                                                 </a>
                                             </td>
                                             <td class="vertical-middle">
