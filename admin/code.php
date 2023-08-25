@@ -215,7 +215,23 @@ if(isset($_POST['add_product'])){
             redirect("product.php?id=" . $item['product_id'], "Delete failed");
         }
     }
-}else {
+}
+
+else if(isset($_POST['UpdateOrder'])){
+    $OrderNO = mysqli_real_escape_string($con,$_POST['Order_NO']);  
+    $status = mysqli_real_escape_string($con,$_POST['order_status']);
+
+    $sql = "UPDATE orders SET order_status = '$status' WHERE Order_NO = '$OrderNO' ";
+    $result = mysqli_query($con,$sql);
+
+    if($result){
+    redirect("Order.php","Update successful");
+    }else{
+        redirect("orderdetail.php?id=$OrderNO","Updated failed");
+    }
+}
+
+else {
     header("Location: ../index.php");
 }
 

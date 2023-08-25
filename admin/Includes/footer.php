@@ -9,7 +9,6 @@
 <!-- Rest of the scripts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../Assets/JS/adminChart.js"></script>
-<script src="../Assets/JS/adminOrder.js"></script>
 <script src="../Assets/JS/alertify.min.js"></script>
 
 <script>

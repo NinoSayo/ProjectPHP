@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="../Assets/CSS/dataTables.css">
     <link rel="stylesheet" href="../Assets/CSS/admin.css">
 
+    <script src="../Assets/JS/jquery-3.7.min.js"></script>
+
+
     <title>Dashboard</title>
 </head>
 

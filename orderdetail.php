@@ -44,7 +44,7 @@ $data = mysqli_fetch_array($result);
                             <h4>Delivery Details</h4>
                         </div>
                         <div class="col align-self-center text-right text-muted">
-                        <a href="myOrder.php"><i class="bi bi-arrow-left"> Back</i></a>
+                            <a href="myOrder.php"><i class="bi bi-arrow-left"> Back</i></a>
                         </div>
                     </div>
                     <hr>
@@ -58,27 +58,27 @@ $data = mysqli_fetch_array($result);
                                     </div>
                                     <div class="col-md-12 mb-2">
                                         <label>Name:</label>
-                                            <?= $data['shipping_firstname'] ?> <?= $data['shipping_lastname'] ?>
+                                        <?= $data['shipping_firstname'] ?> <?= $data['shipping_lastname'] ?>
                                     </div>
                                     <div class="col-md-12 mb-2">
-                                    <label >Email:</label>
-                                            <?= $data['shipping_email'] ?>
+                                        <label>Email:</label>
+                                        <?= $data['shipping_email'] ?>
                                     </div>
                                     <div class="col-md-12 mb-2">
                                         <label>Phone:</label>
-                                            <?= $data['shipping_phone'] ?>
+                                        <?= $data['shipping_phone'] ?>
                                     </div>
                                     <div class="col-md-12 mb-2">
                                         <label>Address:</label>
-                                            <?= $data['shipping_address'] ?>
+                                        <?= $data['shipping_address'] ?>
                                     </div>
                                     <div class="col-md-12 mb-2">
                                         <label>City:</label>
-                                            <?= $data['shipping_city'] ?>
+                                        <?= $data['shipping_city'] ?>
                                     </div>
                                     <div class="col-md-12 mb-2">
                                         <label>Postal Code:</label>
-                                            <?= $data['shipping_pin'] ?>
+                                        <?= $data['shipping_pin'] ?>
                                     </div>
                                 </div>
                             </div>
@@ -129,8 +129,20 @@ $data = mysqli_fetch_array($result);
                         ?>
                     </tbody>
                 </table>
+                <?php 
+                $subtotal = 0;
+                foreach($orderRun as $item){
+                    $subtotal = $item['item_price'] * $item['item_qty'];
+                }
+                ?>
                 <hr>
-                <h5>Total Price: <span class="float-end fw-bold">&dollar;<?= $data['total_price'] ?></span></h5>
+                <h5>Sub Total: <span class="float-end fw-bold">&dollar;<?=$subtotal ?></span></h5>
+                <h6>Shipping Fee: <span class="float-end fw-bold">&dollar;<?= $data['shipping_method'] == '0' ? '5' : ($data['shipping_method'] == '1' ? '20' : '5')?></span></h6>
+                <h4>Total Price: <span class="float-end fw-bold">&dollar;<?= $data['total_price'] ?></span></h4>
+                <label for="" class="my-1">Shipping method</label>
+                <div class="border p-1">
+                     <?= $data['shipping_method'] == '0' ? 'Standard Delivery' : ($data['shipping_method'] == '1' ? 'Hyperspeed Delivery' : 'Standard Delivery') ?>
+                </div>
                 <label for="payment" class="my-1">Payment method</label>
                 <div class="border p-1">
                     <?= strtoupper($data['payment_method']) ?>
@@ -139,7 +151,7 @@ $data = mysqli_fetch_array($result);
                 <div class="border p-1">
                     <span class="status-dot" style="background-color:
         <?= $data['order_status'] == '1' ? 'green' : ($data['order_status'] == '2' ? 'blue' : ($data['order_status'] == '3' ? 'purple' : ($data['order_status'] == '4' ? 'red' : ($data['order_status'] == '5' ? 'orange' : ($data['order_status'] == '6' ? 'yellow' : ($data['order_status'] == '7' ? 'pink' : ($data['order_status'] == '8' ? 'teal' : ($data['order_status'] == '9' ? 'brown' : ($data['order_status'] == '10' ? 'gray' : 'aqua'))))))))) ?>"></span>
-                    <?= $data['order_status'] == '1' ? 'Packing' : ($data['order_status'] == '2' ? 'Shipped' : ($data['order_status'] == '3' ? 'Delivered' : ($data['order_status'] == '4' ? 'Cancel Requested' : ($data['order_status'] == '5' ? 'Cancelled' : ($data['order_status'] == '6' ? 'Refunded' : ($data['order_status'] == '7' ? 'On Hold' : ($data['order_status'] == '8' ? 'Backordered' : ($data['order_status'] == '9' ? 'Payment Pending' : ($data['order_status'] == '10' ? 'Completed' : 'Pending'))))))))) ?>
+                    <?= $data['order_status'] == '1' ? 'Packing' : ($data['order_status'] == '2' ? 'Shipping' : ($data['order_status'] == '3' ? 'Delivered' : ($data['order_status'] == '4' ? 'Cancelled' : ($data['order_status'] == '5' ? 'Refuned' : ($data['order_status'] == '6' ? 'Returned' : ($data['order_status'] == '7' ? 'On Hold' : ($data['order_status'] == '8' ? 'Backordered' : ($data['order_status'] == '9' ? 'Payment Pending' : ($data['order_status'] == '10' ? 'Completed' : 'Pending'))))))))) ?>
                 </div>
             </div>
         </div>

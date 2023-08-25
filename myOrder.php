@@ -28,7 +28,7 @@ include("Includes/header.php");
                     <thead>
                         <tr>
                             <th>Order</th>
-                            <th>Quantity</th>
+                            <th>Total Price</th>
                             <th>Date of Issue</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -44,12 +44,12 @@ include("Includes/header.php");
                                 <div id="myOrder">
                                     <tr>
                                         <td class="vertical-middle"><?= $item['Order_NO'] ?></td>
-                                        <td class="vertical-middle"><?= strtoupper($item['total_price']) ?></td>
+                                        <td class="vertical-middle">&dollar;<?= $item['total_price'] ?></td>
                                         <td class="vertical-middle"><?= date("d/m/Y", strtotime($item['order_date']))?></td>
                                         <td class="vertical-middle">
                                             <span class="status-dot" style="background-color:
         <?= $item['order_status'] == '1' ? 'green' : ($item['order_status'] == '2' ? 'blue' : ($item['order_status'] == '3' ? 'purple' : ($item['order_status'] == '4' ? 'red' : ($item['order_status'] == '5' ? 'orange' : ($item['order_status'] == '6' ? 'yellow' : ($item['order_status'] == '7' ? 'pink' : ($item['order_status'] == '8' ? 'teal' : ($item['order_status'] == '9' ? 'brown' : ($item['order_status'] == '10' ? 'gray' : 'aqua'))))))))) ?>"></span>
-                                            <?= $item['order_status'] == '1' ? 'Packing' : ($item['order_status'] == '2' ? 'Shipped' : ($item['order_status'] == '3' ? 'Delivered' : ($item['order_status'] == '4' ? 'Cancel Requested' : ($item['order_status'] == '5' ? 'Cancelled' : ($item['order_status'] == '6' ? 'Refunded' : ($item['order_status'] == '7' ? 'On Hold' : ($item['order_status'] == '8' ? 'Backordered' : ($item['order_status'] == '9' ? 'Payment Pending' : ($item['order_status'] == '10' ? 'Completed' : 'Pending'))))))))) ?>
+                                            <?= $item['order_status'] == '1' ? 'Packing' : ($item['order_status'] == '2' ? 'Shipping' : ($item['order_status'] == '3' ? 'Delivered' : ($item['order_status'] == '4' ? 'Cancelled' : ($item['order_status'] == '5' ? 'Refuned' : ($item['order_status'] == '6' ? 'Returned' : ($item['order_status'] == '7' ? 'On Hold' : ($item['order_status'] == '8' ? 'Backordered' : ($item['order_status'] == '9' ? 'Payment Pending' : ($item['order_status'] == '10' ? 'Completed' : 'Pending'))))))))) ?>
                                         </td>
                                         <td class="vertical-middle">
                                             <a href="orderdetail.php?id=<?=$item['Order_NO']?>" class="details-link" style="color: blue;"><i class="bi bi-arrow-right-circle"></i><span class="details-text">View Details</span></a>

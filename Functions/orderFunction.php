@@ -15,6 +15,7 @@ if (isset($_SESSION['auth'])) {
         $city = mysqli_real_escape_string($con, $_POST['city']);
         $pin = mysqli_real_escape_string($con, $_POST['pin']);
         $payment_method = mysqli_real_escape_string($con,$_POST['payment_method']);
+        $shipping_method = $_POST['shipping_method'];
         
         if (empty($firstname) || empty($lastname) || empty($phone) || empty($email) || empty($country) || empty($address) || empty($city) || empty($pin)) {
             $_SESSION['message'] = "All fields must be filled";
@@ -43,10 +44,20 @@ if (isset($_SESSION['auth'])) {
 
         $cartItems = mysqli_query($con, $sql1);
 
+        if($shipping_method == 0){
+            $shipping_fee = 5;
+        }else if($shipping_method == 1){
+            $shipping_fee = 20;
+        }
+
         $totalPrice = 0;
+        $totalQTY = 0;
         foreach ($cartItems as $item) {
             $totalPrice += $item['product_price'] * $item['product_qty'];
+            $totalQTY += $item['product_qty'];
         }
+
+        $totalPrice += $shipping_fee;
 
         // Set other variables (shipping, payment, etc.)
         $user_id = $_SESSION['auth_user']['id'];
@@ -70,8 +81,8 @@ if (isset($_SESSION['auth'])) {
         $UniqueOrderNO = GenerateOrderNO($con);
 
         // Insert order into the database
-        $sql2 = "INSERT INTO orders(user_id, Order_NO ,shipping_firstname, shipping_lastname, shipping_phone, shipping_email, shipping_country, shipping_address, shipping_city, shipping_pin, total_price, payment_method) 
-        VALUES ('$user_id', '$UniqueOrderNO' ,'$shipping_firstname', '$shipping_lastname', '$phone', '$email', '$country', '$address', '$city', '$pin', '$totalPrice', '$payment_method')";
+        $sql2 = "INSERT INTO orders(user_id, Order_NO ,shipping_firstname, shipping_lastname, shipping_phone, shipping_email, shipping_country, shipping_address, shipping_city, shipping_pin, shipping_method ,total_qty ,total_price, payment_method) 
+        VALUES ('$user_id', '$UniqueOrderNO' ,'$shipping_firstname', '$shipping_lastname', '$phone', '$email', '$country', '$address', '$city', '$pin', '$shipping_method' ,'$totalQTY' ,'$totalPrice', '$payment_method')";
         $orderInsert = mysqli_query($con,$sql2);
 
         if ($orderInsert) {
@@ -99,11 +110,15 @@ if (isset($_SESSION['auth'])) {
 
             }
 
+            $orderSQL = "SELECT Order_NO FROM orders WHERE order_id = '$order_id'";
+            $result = mysqli_fetch_assoc(mysqli_query($con,$orderSQL));
+            $OrderNO = $result['Order_NO'];
+
             $sql3 = "DELETE FROM carts WHERE user_id = '$user_id' ";
             $deleteCart = mysqli_query($con,$sql3);
 
             $_SESSION['message'] = "Order placed successfully";
-            header("Location: ../myOrder.php");
+            header("Location: ../orderdetail.php?id=$OrderNO");
             die();
              } else {
             

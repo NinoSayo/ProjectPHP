@@ -172,12 +172,8 @@ function getCart($table, $joinTable = null, $joinField = null, $joinOn = null) {
 function getOrderDetails(){
     global $con;
 
-    $sql = "SELECT o.*, oi.*, p.*,MIN(image_source) as image_sources
+    $sql = "SELECT *,DATE(o.create_at) as order_date
     FROM orders o
-    JOIN order_items oi ON o.order_id = oi.order_id
-    JOIN product p ON oi.product_id = p.product_id
-    LEFT JOIN product_image pi ON p.product_id = pi.product_id
-    GROUP BY o.order_id, p.product_id
     ORDER BY o.create_at ASC";
     
     return mysqli_query($con, $sql);
@@ -186,5 +182,12 @@ function getOrderDetails(){
 function getAllOrder(){
     global $con;
     $sql = "SELECT * FROM orders WHERE status = '1' ";
+    return mysqli_query($con,$sql);
+}
+
+function OrderList($OrderNO){
+    global $con;
+
+    $sql = "SELECT * FROM orders WHERE Order_NO = '$OrderNO'";
     return mysqli_query($con,$sql);
 }

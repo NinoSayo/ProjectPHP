@@ -154,15 +154,12 @@ if ($numItems === 0) {
                         <?php endforeach; ?>
                         <div>
                             <p>SHIPPING</p>
-                            <select>
-                                <option class="text-muted">Standard Delivery: &dollar;5</option>
+                            <select name="shipping_method">
+                                <option value="0" class="text-muted" selected>Standard Delivery: &dollar;5</option>
+                                <option value="1" class="text-muted">Hyperspeed Delivery: &dollar;20</option>
                             </select>
                             <p>DISCOUNT</p>
                             <input type="text" id="code" placeholder="Enter promo code">
-                        </div>
-                        <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding:2vh 0;">
-                            <div class="col">TOTAL PRICE</div>
-                            <div class="col text-right">&dollar;<?= $totalPrice ?></div>
                         </div>
                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                             <label class="field-label">Payment Method</label>

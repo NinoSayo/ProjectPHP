@@ -121,17 +121,9 @@ include("Includes/header.php");
                 </div>
                 <div class="col-md-4 summary">
                     <div>
-                            <h5><b>Summary</b></h5>
+                            <h5><b>Head to checkout</b></h5>
                         </div>
                         <hr>
-                        <form>
-                            <p>SHIPPING</p>
-                            <select>
-                                <option class="text-muted">Standard Delivery: &dollar;5</option>
-                            </select>
-                            <p>DISCOUNT</p>
-                            <input type="text" id="code" placeholder="Enter promo code">
-                        </form>
                         <?php if ($numItems > 0) { ?>
                         <button class="btn checkout-btn" onclick="location.href='checkout.php'">
                             <i class="bi bi-cart-check"></i> CHECKOUT
