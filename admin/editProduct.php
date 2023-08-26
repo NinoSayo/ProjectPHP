@@ -48,9 +48,10 @@ if (isset($_GET['id']) && isset($_GET['image_id'])) {
                                                 <input type="file" name="image[]" multiple id="input-image" class="form-control mb-2">
                                                 <label for="">Current Images:</label>
                                                 <?php
-                                                $images = getAll('product_image');
-                                                if (mysqli_num_rows($images) > 0) {
-                                                    while ($image = mysqli_fetch_array($images)) {
+                                                // $images = getAll('product_image');
+                                                // if (mysqli_num_rows($images) > 0) {
+                                                    $images = getProductsWithImages($id);
+                                                    foreach($images as $image){
                                                         if ($image['product_id'] == $id)
                                                 ?>
                                                         <div>
@@ -111,7 +112,7 @@ if (isset($_GET['id']) && isset($_GET['image_id'])) {
             </main>
 
 <?php
-                                                }
+                                                
                                             }
                                         } else {
                                             echo "Product not found";

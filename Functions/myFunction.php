@@ -90,6 +90,7 @@ function getProductsWithImages($product_id = null)
         $data[] = $row;
     }
 
+
     return $data;
 }
 
