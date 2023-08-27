@@ -113,4 +113,33 @@ function CheckValid($OrderNO){
     
     return mysqli_query($con,$sql);
 }
-?>
+
+function searchProducts($searchTerm)
+{
+    global $con;
+
+    // Prepare the SQL query
+    $query = "SELECT *
+              FROM product
+              INNER JOIN product_image ON product.product_id = product_image.product_id 
+              WHERE product.product_name LIKE ?";
+    $searchTerm = '%' . $searchTerm . '%';
+
+    // Prepare and bind the parameters
+    $stmt = $con->prepare($query);
+    $stmt->bind_param("s", $searchTerm);
+
+    // Execute the query
+    $stmt->execute();
+
+    // Get the result set
+    $result = $stmt->get_result();
+
+    // Fetch all rows as associative arrays
+    $products = [];
+    while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+    }
+
+    return $products;
+}

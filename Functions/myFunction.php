@@ -192,3 +192,23 @@ function OrderList($OrderNO){
     $sql = "SELECT * FROM orders WHERE Order_NO = '$OrderNO'";
     return mysqli_query($con,$sql);
 }
+
+function searchProducts($search) {
+    global $con;
+
+    $search = mysqli_real_escape_string($con, $search);
+
+    $sql = "SELECT * FROM product WHERE product_name LIKE '%$search%'";
+    $result = mysqli_query($con, $sql);
+
+    $products = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $products[] = $row;
+    }
+
+    mysqli_close($con);
+
+    return $products;
+}
+
+?>
