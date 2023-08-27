@@ -45,18 +45,18 @@ include("Includes/header.php");
                                     <tr>
                                         <td class="vertical-middle"><?= $item['Order_NO'] ?></td>
                                         <td class="vertical-middle">&dollar;<?= $item['total_price'] ?></td>
-                                        <td class="vertical-middle"><?= date("d/m/Y", strtotime($item['order_date']))?></td>
+                                        <td class="vertical-middle"><?= date("d/m/Y", strtotime($item['order_date'])) ?></td>
                                         <td class="vertical-middle">
                                             <span class="status-dot" style="background-color:
         <?= $item['order_status'] == '1' ? 'green' : ($item['order_status'] == '2' ? 'blue' : ($item['order_status'] == '3' ? 'purple' : ($item['order_status'] == '4' ? 'red' : ($item['order_status'] == '5' ? 'orange' : ($item['order_status'] == '6' ? 'yellow' : ($item['order_status'] == '7' ? 'pink' : ($item['order_status'] == '8' ? 'teal' : ($item['order_status'] == '9' ? 'brown' : ($item['order_status'] == '10' ? 'gray' : 'aqua'))))))))) ?>"></span>
                                             <?= $item['order_status'] == '1' ? 'Packing' : ($item['order_status'] == '2' ? 'Shipping' : ($item['order_status'] == '3' ? 'Delivered' : ($item['order_status'] == '4' ? 'Cancelled' : ($item['order_status'] == '5' ? 'Refuned' : ($item['order_status'] == '6' ? 'Returned' : ($item['order_status'] == '7' ? 'On Hold' : ($item['order_status'] == '8' ? 'Backordered' : ($item['order_status'] == '9' ? 'Payment Pending' : ($item['order_status'] == '10' ? 'Completed' : 'Pending'))))))))) ?>
                                         </td>
                                         <td class="vertical-middle">
-                                            <a href="orderdetail.php?id=<?=$item['Order_NO']?>" class="details-link" style="color: blue;"><i class="bi bi-arrow-right-circle"></i><span class="details-text">View Details</span></a>
-                                            <?php if ( $item['order_status'] != '2' && $item['order_status'] != '4') { ?>
-                                                <a href="#" class="cancel-link" data-order-id="<?= $item['order_id'] ?>" style="color: red;">
-                                                    <i class="bi bi-x-circle"></i><span class="cancel-text">Cancel</span>
-                                                </a> <?php } ?>
+                                            <a href="orderdetail.php?id=<?= $item['Order_NO'] ?>" class="details-link" style="color: blue;"><i class="bi bi-arrow-right-circle"></i><span class="details-text">View Details</span></a>
+                                            <!-- Initially hidden cancel button -->
+                                            <a href="#" class="cancel-link" data-order-id="<?= $item['order_id'] ?>" style="color: red; display: none;">
+                                                <i class="bi bi-x-circle"></i><span class="cancel-text">Cancel</span>
+                                            </a>
                                         </td>
                                     </tr>
                                 <?php
@@ -100,6 +100,43 @@ include("Includes/header.php");
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            // Function to update order status and cancel button display
+            function updateOrderStatus() {
+                $('.cancel-link').each(function() {
+                    var orderId = $(this).data('order-id');
+                    var cancelButton = $(this);
+
+                    $.ajax({
+                        url: 'orderStatus.php', // Path to your PHP script
+                        method: 'POST', // Use POST method
+                        data: {
+                            order_id: orderId,
+                            new_status: 2 // Example: 2 corresponds to 'Shipping'
+                        },
+                        success: function(response) {
+                            if (response === 'success') {
+                                var orderStatus = cancelButton.closest('tr').find('.status-dot').data('order-status');
+                                if (orderStatus < 2) {
+                                    cancelButton.show(); // Show the cancel button
+                                } else {
+                                    cancelButton.hide(); // Hide the cancel button
+                                }
+                            }
+                        },
+                        error: function() {
+                            // Handle error
+                        }
+                    });
+                });
+            }
+
+            // Update every 10 seconds
+            setInterval(updateOrderStatus, 10000);
+        });
+    </script>
+
 </div>
 
 <?php

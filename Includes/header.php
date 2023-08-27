@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="Assets/CSS/alertify.min.css">
     <link rel="stylesheet" href="Assets/CSS/style2.css">
     <link rel="stylesheet" href="Assets/CSS/bootstrap.min.css">
+    <script src="Assets/JS/jquery-3.7.min.js"></script>
+
     <style>
         a {
             text-decoration: none;
