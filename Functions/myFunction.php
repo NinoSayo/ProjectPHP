@@ -210,5 +210,10 @@ function searchProducts($search) {
 
     return $products;
 }
-
+function getBlogByID($id)
+{
+    global $con;
+    $sql = "SELECT * FROM blog WHERE blog_id = '$id'";
+    return $run = mysqli_query($con, $sql);
+}
 ?>

@@ -61,10 +61,8 @@ include("Includes/header.php");
 <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
     <div class="container">
         <div class="row">
-            <div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center"
-                style="background-image: url(images/about.jpg);">
-                <a href="https://vimeo.com/45830194"
-                    class="icon popup-vimeo d-flex justify-content-center align-items-center">
+            <div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/about.jpg);">
+                <a href="https://vimeo.com/45830194" class="icon popup-vimeo d-flex justify-content-center align-items-center">
                     <span class="icon-play"></span>
                 </a>
             </div>
@@ -75,12 +73,11 @@ include("Includes/header.php");
                     </div>
                 </div>
                 <div class="pb-md-5 pb-4">
-                    <p>But nothing the copy said could convince her and so it didn’t take long until a few insidious
-                        Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their
-                        agency, where they abused her for their.</p>
-                    <p>But nothing the copy said could convince her and so it didn’t take long until a few insidious
-                        Copy Writers ambushed her.</p>
-                    <p><a href="#" class="btn btn-primary">Shop now</a></p>
+                    <p>Welcome to Vogue Store, your ultimate destination for exquisite footwear that transcends trends and celebrates timeless elegance. Established in the year 2022, we have been on a remarkable journey, curating and crafting the most stunning collection of shoes that cater to the sophisticated tastes of our discerning clientele.</p>
+                    <p>At Vogue Store, we believe that shoes are not just an accessory; they are an expression of one's personality and style. With this philosophy in mind, we have carefully handpicked each pair of shoes in our collection, ensuring that they embody the perfect blend of aesthetics, comfort, and craftsmanship. From the moment you step into our store, you'll be greeted by a world of footwear that reflects the passion and dedication we put into every step of our journey.</p>
+                    <p>
+                    Our diverse range of footwear is a testament to our commitment to serving various tastes and occasions. Whether you're seeking a classic pair of leather brogues for a formal event, trendy sneakers for a casual outing, or elegant heels to make a statement, we have something for everyone. Every pair of shoes is a masterpiece, meticulously designed to elevate your style quotient and provide the utmost comfort for your feet.</p>
+                    <p><a href="shop.php" class="btn btn-primary">Shop now</a></p>
                 </div>
             </div>
         </div>
@@ -92,7 +89,7 @@ include("Includes/header.php");
         <div class="row">
             <div class="col-lg-5">
             </div>
-           
+
         </div>
     </div>
 </section>

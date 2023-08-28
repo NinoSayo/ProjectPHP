@@ -76,6 +76,28 @@
                             </ul>
                         </div>
                     </div>
+                    <p class="gap-1">
+                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseBlog" role="button" aria-expanded="false" aria-controls="collapseProduct">
+                            <span class="me-2"><i class="bi bi-card-list"></i></span>
+                            <span>Blog</span>
+                            <span class="ms-auto right-icon"><i class="bi bi-chevron-down"></i></span>
+                        </a>
+                    <div class="collapse" id="collapseBlog">
+                        <div>
+                            <ul class="navbar-nav ps-3">
+                                <li>
+                                    <a href="blog.php" class="nav-link px-3">
+                                        <span>Blog List</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="addBlog.php" class="nav-link px-3">
+                                        <span>Add Blog</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     <li>
                     <a href="Order.php" class="nav-link px-3 ">
                         <span class="me-2"><i class="bi bi-cart-plus-fill"></i> Orders </span>

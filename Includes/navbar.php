@@ -20,6 +20,18 @@
         <li class="nav-item"><a href="blog.php" class="nav-link">Blog</a></li>
         <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
         <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+        <?php if (isset($_SESSION['auth'])) {
+        ?>
+        <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
+        <?php
+        } else { ?>
+          <li class="nav-item">
+            <a class="nav-link" href="register.php">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.php">Login</a>
+          </li>
+        <?php } ?>
       </ul>
     </div>
   </div>
