@@ -2,7 +2,76 @@
 include("../Database/Connect.php");
 include("../Functions/redirect.php");
 include("../Functions/myFunction.php");
+//Blog
+if (isset($_POST['add_blog'])) {
+    $title = $_POST['title'];
+    $content = $_POST['content'];
+    $image = "Images/blog/" . basename($_FILES['image']['name']);
+    $imagePath = "../Assets/Images/blog/" . basename($_FILES['image']['name']);
 
+    $sql1 = "INSERT INTO blog(title,content,image) VALUES ('$title','$content','$image')";
+
+    $addBlog = mysqli_query($con, $sql1);
+
+    if ($addBlog) {
+        move_uploaded_file($_FILES['image']['tmp_name'], $imagePath);
+        redirect("addBlog.php", "Blog added successfully");
+    } else {
+        redirect("addBlog.php", "Failed to add blog");
+    }
+} else if (isset($_POST['update_blog'])) {
+    $blog_id = $_POST['blog_id'];
+    $title = $_POST['title'];
+    $content = $_POST['content'];
+
+    // Check if a new image is uploaded
+    if (!empty($_FILES['image']['name'])) {
+        $new_image = "Images/blog/" . basename($_FILES['image']['name']);
+        $imagePath = "../Assets/Images/blog/" . basename($_FILES['image']['name']);
+        $update_filename = $new_image;
+
+        // Move the uploaded image to the desired folder
+        move_uploaded_file($_FILES['image']['tmp_name'], $imagePath);
+
+        // Delete the old image
+        if (file_exists("../Assets/" . $old_image)) {
+            unlink("../Assets/" . $old_image);
+        }
+    } else {
+        // No new image uploaded, retain the existing image path
+        $update_filename = $old_image;
+    }
+
+    // Update the blog record
+    $sql2 = "UPDATE blog SET title = '$title',content = '$content'";
+
+    // Update the blog_image field only if a new image is uploaded
+    if (!empty($_FILES['image']['name'])) {
+        $sql2 .= ", image = '$update_filename'";
+    }
+
+    $sql2 .= " WHERE blog_id = '$blog_id'";
+
+    $update = mysqli_query($con, $sql2);
+
+    if ($update) {
+        redirect("editBlog.php?id=$blog_id", "Blog updated successfully");
+    } else {
+        redirect("editBlog.php?id=$blog_id", "Update failed");
+    }
+}
+
+
+else if(isset($_POST['delete_blog'])){
+    $blog_id = mysqli_real_escape_string($con,$_POST['blog_id']);
+    $sql4 = "DELETE FROM blog WHERE blog_id = '$blog_id'";
+    $delete = mysqli_query($con,$sql4);
+    if($delete){
+        redirect("blog.php","Category deleted successfully");
+    }else{
+        redirect("blog.php","Delete failed");
+    }
+}
 if (isset($_POST['add_category'])) {
     $name = $_POST['name'];
     $description = $_POST['description'];

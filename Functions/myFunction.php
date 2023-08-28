@@ -14,7 +14,12 @@ function getByID($table, $id)
     $sql = "SELECT * FROM $table WHERE category_id = '$id'";
     return $run = mysqli_query($con, $sql);
 }
-
+function getBlogByID($id)
+{
+    global $con;
+    $sql = "SELECT * FROM blog WHERE blog_id = '$id'";
+    return $run = mysqli_query($con, $sql);
+}
 function uploadImages($images, $product_id, $con) {
     $image_sources = array();
 
@@ -46,6 +51,7 @@ function uploadImages($images, $product_id, $con) {
 
 
 
+
 function validateUploadFile($file, $uploadPath)
 {
     if ($file['size'] > 2 * 1024 * 1024) { // max upload = 2mb
@@ -67,6 +73,9 @@ function validateUploadFile($file, $uploadPath)
     $file['name'] = $fileName . '.' . $fileType;
     return $file;
 }
+
+
+
 
 function getProductsWithImages($product_id = null)
 {
