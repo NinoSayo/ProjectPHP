@@ -28,9 +28,9 @@ if (isset($_POST['contact'])) {
         $mail->Password = SMTP_PWORD;
         $mail->SMTPSecure = 'ssl';
         $mail->Port = SMTP_PORT;
-        $mail->setFrom(SMTP_UNAME, "MINISHOP");
+        $mail->setFrom(SMTP_UNAME, "Shoestopia");
         $mail->addAddress("thanhnghia122004@gmail.com", "Chủ Shop");
-        $mail->addReplyTo(SMTP_UNAME, 'MINISHOP');
+        $mail->addReplyTo(SMTP_UNAME, 'Shoestopia');
         $mail->isHTML(true);
         $mail->Subject = 'Feedback';
         $mail->Body = $noidung;
@@ -70,7 +70,7 @@ if (isset($_POST['forgot'])) {
     </head>
     <body>
         <p>Please click the button below to reset the password :</p>
-        <a href='http://localhost/ProjectPHP-main/reset-password.php?email=$email' class='button'>Reset Password</a>
+        <a href='http://localhost:81/demo/Project/reset-password.php?email=$email' class='button'>Reset Password</a>
     </body>
     </html>
 ";
@@ -85,9 +85,9 @@ if (isset($_POST['forgot'])) {
             $mail->Password = SMTP_PWORD;
             $mail->SMTPSecure = 'ssl';
             $mail->Port = SMTP_PORT;
-            $mail->setFrom(SMTP_UNAME, "MINISHOP");
+            $mail->setFrom(SMTP_UNAME, "Shoestopia");
             $mail->addAddress($email, $email);
-            $mail->addReplyTo(SMTP_UNAME, 'MINISHOP');
+            $mail->addReplyTo(SMTP_UNAME, 'Shoestopia');
             $mail->isHTML(true);
             $mail->Subject = 'Reset Password';
             $mail->Body = $noidung;
@@ -131,9 +131,9 @@ if (isset($_POST['reset'])) {
             $mail->Password = SMTP_PWORD;
             $mail->SMTPSecure = 'ssl';
             $mail->Port = SMTP_PORT;
-            $mail->setFrom(SMTP_UNAME, "MINISHOP");
+            $mail->setFrom(SMTP_UNAME, "Shoestopia");
             $mail->addAddress($email, $email);
-            $mail->addReplyTo(SMTP_UNAME, 'MINISHOP');
+            $mail->addReplyTo(SMTP_UNAME, 'Shoestopia');
             $mail->isHTML(true);
             $mail->Subject = 'Reset password successfully';
             $mail->Body = $noidung;
@@ -151,3 +151,4 @@ if (isset($_POST['reset'])) {
     }
 }
 ?>
+

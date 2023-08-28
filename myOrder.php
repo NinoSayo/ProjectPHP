@@ -43,7 +43,7 @@ include("Includes/header.php");
                             <tbody>
                                 <div id="myOrder">
                                     <tr>
-                                        <td class="vertical-middle"><?= $item['Order_NO'] ?></td>
+                                        <td class="vertical-middle"><a href="orderdetail.php?id=<?=$item['Order_NO']?>" ><?= $item['Order_NO'] ?></a></td>
                                         <td class="vertical-middle">&dollar;<?= $item['total_price'] ?></td>
                                         <td class="vertical-middle"><?= date("d/m/Y", strtotime($item['order_date']))?></td>
                                         <td class="vertical-middle">

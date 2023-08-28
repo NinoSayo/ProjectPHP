@@ -7,24 +7,29 @@
     </button>
     <div class="collapse navbar-collapse" id="ftco-nav">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active"><a href="index.php" class="nav-link">Home</a></li>
+        <li class="nav-item active"><a id="homeLink" href="index.php" class="nav-link">Home</a></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
           <div class="dropdown-menu" aria-labelledby="dropdown04">
             <a class="dropdown-item" href="shop.php">Shop</a>
-            <a class="dropdown-item" href="cart.php">Cart</a>
-            <a class="dropdown-item" href="checkout.php">Checkout</a>
           </div>
-
         </li>
         <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
         <li class="nav-item"><a href="blog.php" class="nav-link">Blog</a></li>
         <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
-        <li class="nav-item cta cta-colored"><a href="shoppingCart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
         <?php if (isset($_SESSION['auth'])) {
         ?>
-        <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
-        <?php
+        <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-person-vcard-fill"></i></a>
+          <div class="dropdown-menu" aria-labelledby="dropdown04">
+          <a class="dropdown-item disabled" aria-disabled="true"><?= $_SESSION['auth_user']['username'] ?></a>
+              <hr>
+              <a class="dropdown-item" href="#">Regular link</a>
+              <a class="dropdown-item" href="myOrder.php">Your order</a>
+              <a class="dropdown-item" href="logout.php">Logout</a>
+          </div>
+        </li>        <?php
         } else { ?>
           <li class="nav-item">
             <a class="nav-link" href="register.php">Register</a>
