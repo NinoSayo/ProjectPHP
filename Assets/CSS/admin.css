@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+body,
+button {
+    font-family: "Inter", sans-serif;
+    background-color: rgb(219, 219, 219);
+    color:black;
+}
+
+body.dark-theme{
+    background-color: #2f373f;
+    color: rgba(255, 255, 255, 0.87);
+}
+
+:root {
+    --offcanvas-width: 270px;
+    --topNavBarHeight: 56px;
+}
+
+h6#non-clickable {
+    pointer-events: none;
+    cursor: default;
+  }
+
+#offcanvasExample {
+    width: var(--offcanvas-width);
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+}
+
+.right-icon {
+    display: inline-flex;
+    transition: all ease 0.25;
+}
+
+.sidebar-link[aria-expanded="true"] .right-icon {
+    transform: rotate(180deg);
+}
+
+.form-control{
+    border: 1px solid #b3a1a1 !important;
+    padding: 8px-10px;
+}
+.form-select{
+    border: 1px solid #b3a1a1 !important;
+    padding: 8px-10px;
+}
+
+@media (min-width: 992px) {
+    body {
+        overflow: auto !important;
+    }
+
+    main {
+        margin-left: var(--offcanvas-width)
+    }
+
+    .offcanvas-backdrop {
+        display: none;
+    }
+
+    #offcanvasExample {
+        transform: none;
+        visibility: visible !important;
+        top: var(--topNavBarHeight);
+        height: calc(100% - var(--topNavBarHeight));
+    }
+}
