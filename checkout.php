@@ -1,4 +1,5 @@
 <?php
+
 include("Functions/userFunction.php");
 include("Functions/redirect.php");
 include("Functions/authenticate.php");

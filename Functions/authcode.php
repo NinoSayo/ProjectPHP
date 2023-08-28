@@ -90,6 +90,4 @@ if (isset($_POST['register-btn'])) {
         $_SESSION['message'] = "Invalid login";
         header("Location: ../login.php");
     }
-
- 
 ?>

@@ -53,7 +53,53 @@ function getProductsWithImages($product_id = null)
     }
     return $data;
 }
+function getBlogLimited($startIndex, $blogsPerPage)
+{
+    global $con;
+    $sql = "SELECT * FROM blog
+     ORDER BY created_at DESC
+     LIMIT $startIndex, $blogsPerPage";
+    $result = mysqli_query($con, $sql);
+    $data = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $data[] = $row;
+    }
+    return $data;
+}
 
+function getRecentBlogs() {
+    global $con; 
+    $query = "SELECT * FROM blog ORDER BY created_at DESC LIMIT 4"; // Lấy 3 bài gần đây
+    $result = $con->query($query);
+    $recentBlogs = $result->fetch_all(MYSQLI_ASSOC);
+
+    return $recentBlogs;
+}
+function getBlogDetail($blog_id) {
+    global $con; 
+
+    $query = "SELECT * FROM blog WHERE blog_id = ?";
+    
+    $stmt = $con->prepare($query);
+    $stmt->bind_param("i", $blog_id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $blogDetail = $result->fetch_assoc();
+
+    return $blogDetail;
+}
+
+function countBlogs() {
+    global $con; 
+
+    $query = "SELECT COUNT(*) as total FROM blog";
+    
+    $result = $con->query($query);
+    $row = $result->fetch_assoc();
+
+    return $row['total'];
+}
 function getCartItems() {
     global $con;
     $userID = $_SESSION['auth_user']['id'];
