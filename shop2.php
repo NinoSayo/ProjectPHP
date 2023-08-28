@@ -1,62 +1,90 @@
 <?php
-
 include("Functions/userFunction.php");
 include("Includes/header.php");
+include("Database/Connect.php");
 
-if(isset($_GET['category'])){
+if (isset($_POST["submit"])) {
+	// Get the search query from the form
+	$searchTerm = $_POST["search"];
 
-$category_slug = $_GET['category'];
-$categoryData = getSlugActive('category',$category_slug,'category_slug','category_status');
-$category = mysqli_fetch_array($categoryData);
+	// var_dump($searchTerm);
 
-if($category){
-    $cid = $category['category_id'];
-    ?>
-
+	// Search for products based on the query
+	$products = searchProducts($searchTerm);
+}
+?>
 <div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
 	<div class="container">
 		<div class="row no-gutters slider-text align-items-center justify-content-center">
 			<div class="col-md-9 ftco-animate text-center">
 				<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span>Shop</span></p>
-				<h1 class="mb-0 bread">Product</h1>
+				<h1 class="mb-0 bread">Shop</h1>
 			</div>
 		</div>
 	</div>
 </div>
+<section class="ftco-section bg-light">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-lg-10 order-md-last">
+				<div class="row" id="filtered-products">
+					<?php
+					if (isset($products) && !empty($products)) {
+						$productsToDisplay = $products;
+					} else {
+						$productsToDisplay = getProductsWithImages();
+					}
 
-    <div class="py-2">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <h1><?=$category['category_name'];?></h1>
-                    <hr>
-                    <div class="row">
-                        <?php
-                        $products = getProductByCategory($cid);
-    
-                        if (mysqli_num_rows($products) > 0) {
-                            foreach ($products as $items) {
-                        ?>
-                        <div class="col-md-4 mb-2">
-                            <a href="productsView.php?product=<?= $items['product_slug'] ?>">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <img src="Assets/<?=$items['image_source'];?>" alt="Product Image" class="w-100">
-                                <h4 class ="text-center"><?= $items['product_name'] ?></h4>
-                                </div>
-                            </div>
-                        </div>
-                                
-                        <?php
-                            }
-                        } else {
-                            echo "No data available";
-                        }
-                        ?>
-                    </div>
-                </div>
-            </div>
-    <div class="col-md-4 col-lg-2">
+					foreach ($productsToDisplay as $p) :
+					
+					?>
+						<div class="col-sm-12 col-md-12 col-lg-4 ftco-animate d-flex">
+							<div class="product d-flex flex-column">
+								<a href="product-single.php?id=<?= $p['product_slug'] ?>" class="img-prod">
+									<img class="img-fluid" src="Assets/<?= $p['image_source'] ?>" alt="">
+									<div class="overlay"></div>
+								</a>
+								<div class="text py-3 pb-4 px-3">
+									<div class="d-flex">
+										<div class="cat">
+											<span></span>
+										</div>
+									</div>
+									<h3><a href="#"><?= $p['product_name'] ?></a></h3>
+									<div class="pricing">
+										<p class="price"><span><?= $p['product_price'] ?>$</span></p>
+									</div>
+									<p class="bottom-area d-flex px-3">
+										<input type="hidden" name="product_id" value="<?= $product['product_id']; ?>">
+                                <button class="btn btn-primary px-4 addToCart-btn " value="<?=$product['product_id']?>"><i class="bi bi-cart-plus-fill me-2"></i>Add to cart</button>
+										<a href="#" class="buy-now text-center py-2">Buy now<span><i class="ion-ios-cart ml-1"></i></span></a>
+									</p>
+								</div>
+							</div>
+						</div>
+					<?php endforeach; ?>
+
+					<?php if (empty($productsToDisplay)) : ?>
+						<div class="col-md-12 text-center">
+							<p>No products found for your search.</p>
+						</div>
+					<?php endif; ?>
+				</div>
+
+
+				<div class="row mt-5">
+					<div class="col text-center">
+						<div class="block-27">
+							<ul>
+
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+			<div class="col-md-4 col-lg-2">
 				<div class="sidebar">
 					<div class="sidebar-box-2">
 						<h2 class="heading">Brand</h2>
@@ -165,17 +193,13 @@ if($category){
 					</script>
 				</div>
 			</div>
-        </div>
-                    </div>
-    <?php
-}else{
-    echo "Something went wrong";
-}
+		</div>
+	</div>
+</section>
+</body>
 
-}
-else{
-    echo "Something went wrong";
-}
-include("Includes/footer.php");
-
+</html>
+<?php
+include("Includes/js.php");
+include("Includes/footer.php")
 ?>

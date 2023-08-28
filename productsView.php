@@ -50,9 +50,9 @@ if (isset($_GET['product'])) {
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="input-group mb-3" style="width: 130px">
-                                    <Button class="input-group-text decrement-btn ">-</Button>
+                                    <Button class="input-group-text decrement-btn "><i class="ion-ios-remove"></i></Button>
                                     <input type="text" class="form-control text-center input-qty bg-white" value="1" disabled>
-                                    <Button class="input-group-text increment-btn">+</Button>
+                                    <Button class="input-group-text increment-btn"><i class="ion-ios-add"></i></Button>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@ if (isset($_GET['product'])) {
                         <div class="row mt-3">
                             <div class="col-md-6">
                             <input type="hidden" name="product_id" value="<?= $product['product_id']; ?>">
-                                <button class="btn btn-primary px-4 addToCart-btn " value="<?=$product['product_id']?>"><i class="bi bi-cart-plus-fill me-2"></i>Add to cart</button>
+                                <button class="btn btn-black py-3 px-5 mr-2 addToCart-btn " value="<?=$product['product_id']?>"><i class="bi bi-cart-plus-fill me-2"></i>Add to cart</button>
                             </div>
                             <div class="col-md-6">
                                 <button class="btn btn-danger px-4"><i class="bi bi-heart me-2"></i>Wishlist</button>

@@ -78,18 +78,6 @@ include("Includes/header.php");
                                 ?>
                             </tbody>
                         </table>
-                        <div class="modal" id="statusModal" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Select New Order Status</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -116,6 +104,35 @@ $(document).ready(function() {
             $(".order-row[data-status='" + status + "']").show();
         }
     });
+
+     // Handle delete action
+     $(".delete-link").click(function () {
+                var orderID = $(this).data("order-id");
+
+                // Show confirm dialog
+                var shouldDelete = confirm("Are you sure you want to delete this order?");
+                if (shouldDelete) {
+                    // Send an AJAX request to delete the order
+                    $.ajax({
+                        type: "POST",
+                        url: "deleteOrder.php", // Replace with the actual path to your deleteOrder.php script
+                        data: { order_id: orderID },
+                        success: function (response) {
+                            if (response === "success") {
+                                // Reload the page or update the order list as needed
+                                location.reload(); // For example, reload the page to reflect the updated order list
+                            } else {
+                                // Handle error case
+                                alert("Error deleting order");
+                            }
+                        },
+                        error: function () {
+                            alert("An error occurred");
+                        },
+                    });
+                }
+            });
+
 });
 </script>
 </main>

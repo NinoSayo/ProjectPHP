@@ -1,5 +1,4 @@
 <?php
-
 include("Functions/userFunction.php");
 include("Functions/redirect.php");
 include("Functions/authenticate.php");
@@ -11,35 +10,16 @@ include("Includes/header.php");
         margin-top: 31px;
     }
 </style>
-<div class="breadcrumbs">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <p class="bread"><span><a href="index.php">Home</a></span> / <span>Shopping Cart</span></p>
-            </div>
-        </div>
-    </div>
+<div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-center justify-content-center">
+			<div class="col-md-9 ftco-animate text-center">
+				<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span>Shop</span></p>
+				<h1 class="mb-0 bread">Cart</h1>
+			</div>
+		</div>
+	</div>
 </div>
-
-<div class="container">
-    <div class="row row-pb-lg">
-        <div class="col-md-10 offset-md-1">
-            <div class="process-wrap">
-                <div class="process text-center active">
-                    <p><span>01</span></p>
-                    <h3>Shopping Cart</h3>
-                </div>
-                <div class="process text-center">
-                    <p><span>02</span></p>
-                    <h3>Checkout</h3>
-                </div>
-                <div class="process text-center">
-                    <p><span>03</span></p>
-                    <h3>Order Complete</h3>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <?php
     $items = getCartItems();
