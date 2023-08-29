@@ -83,11 +83,12 @@ $data = mysqli_fetch_array($result);
                                         <?= $data['shipping_pin'] ?>
                                     </div>
                                 </div>
-                                <form method="POST" action="cancelOrder.php"> <!-- Adjust the action and method as needed -->
-                                    <input type="hidden" name="order_id" value="<?= $data['order_id'] ?>">
-                                    <button class="btn btn-danger" type="submit" name="cancel_order">Cancel</button>
-                                </form>
-
+                                <?php if ($data['order_status'] <= 2) { ?>
+                                    <form method="POST" action="cancelOrder.php">
+                                        <input type="hidden" name="order_id" value="<?= $data['order_id'] ?>">
+                                        <button class="btn btn-danger" type="submit" name="cancel_order">Cancel</button>
+                                    </form>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
