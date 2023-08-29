@@ -26,18 +26,18 @@ $data = mysqli_fetch_array($result);
     }
 </style>
 <div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
-	<div class="container">
-		<div class="row no-gutters slider-text align-items-center justify-content-center">
-			<div class="col-md-9 ftco-animate text-center">
-				<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Order</span>
-				</p>
-				<h1 class="mb-0 bread">Details</h1>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Order</span>
+                </p>
+                <h1 class="mb-0 bread">Details</h1>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="py-5">
-    <div class="card">
+    <div class="">
         <div class="row">
             <div class="col-md-8 cart">
                 <div class="title">
@@ -83,15 +83,21 @@ $data = mysqli_fetch_array($result);
                                         <?= $data['shipping_pin'] ?>
                                     </div>
                                 </div>
+                                <form method="POST" action="cancelOrder.php"> <!-- Adjust the action and method as needed -->
+                                    <input type="hidden" name="order_id" value="<?= $data['order_id'] ?>">
+                                    <button class="btn btn-danger" type="submit" name="cancel_order">Cancel</button>
+                                </form>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-4 summary">
                 <h4><b>Order Details</b></h4>
                 <hr>
-                <table class="table">
+                <table>
                     <thead>
                         <tr>
                             <th>Product</th>
@@ -131,19 +137,19 @@ $data = mysqli_fetch_array($result);
                         ?>
                     </tbody>
                 </table>
-                <?php 
+                <?php
                 $subtotal = 0;
-                foreach($orderRun as $item){
+                foreach ($orderRun as $item) {
                     $subtotal = $item['item_price'] * $item['item_qty'];
                 }
                 ?>
                 <hr>
-                <h5>Sub Total: <span class="float-end fw-bold">&dollar;<?=$subtotal ?></span></h5>
-                <h6>Shipping Fee: <span class="float-end fw-bold">&dollar;<?= $data['shipping_method'] == '0' ? '5' : ($data['shipping_method'] == '1' ? '20' : '5')?></span></h6>
+                <h5>Sub Total: <span class="float-end fw-bold">&dollar;<?= $subtotal ?></span></h5>
+                <h6>Shipping Fee: <span class="float-end fw-bold">&dollar;<?= $data['shipping_method'] == '0' ? '5' : ($data['shipping_method'] == '1' ? '20' : '5') ?></span></h6>
                 <h4>Total Price: <span class="float-end fw-bold">&dollar;<?= $data['total_price'] ?></span></h4>
                 <label for="" class="my-1">Shipping method</label>
                 <div class="border p-1">
-                     <?= $data['shipping_method'] == '0' ? 'Standard Delivery' : ($data['shipping_method'] == '1' ? 'Hyperspeed Delivery' : 'Standard Delivery') ?>
+                    <?= $data['shipping_method'] == '0' ? 'Standard Delivery' : ($data['shipping_method'] == '1' ? 'Hyperspeed Delivery' : 'Standard Delivery') ?>
                 </div>
                 <label for="payment" class="my-1">Payment method</label>
                 <div class="border p-1">

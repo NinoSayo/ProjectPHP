@@ -21,7 +21,7 @@ include("Includes/header.php");
     </div>
 </div>
 <div class="py-5">
-    <div class="card">
+    <div class="">
         <div class="row">
             <div class="col-md-8 cart">
                 <table class="table table-bordered text-center">
@@ -31,7 +31,6 @@ include("Includes/header.php");
                             <th>Total Price</th>
                             <th>Date of Issue</th>
                             <th>Status</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <?php
@@ -50,13 +49,6 @@ include("Includes/header.php");
                                             <span class="status-dot" style="background-color:
         <?= $item['order_status'] == '1' ? 'green' : ($item['order_status'] == '2' ? 'blue' : ($item['order_status'] == '3' ? 'purple' : ($item['order_status'] == '4' ? 'red' : ($item['order_status'] == '5' ? 'orange' : ($item['order_status'] == '6' ? 'yellow' : ($item['order_status'] == '7' ? 'pink' : ($item['order_status'] == '8' ? 'teal' : ($item['order_status'] == '9' ? 'brown' : ($item['order_status'] == '10' ? 'gray' : 'aqua'))))))))) ?>"></span>
                                             <?= $item['order_status'] == '1' ? 'Packing' : ($item['order_status'] == '2' ? 'Shipping' : ($item['order_status'] == '3' ? 'Delivered' : ($item['order_status'] == '4' ? 'Cancelled' : ($item['order_status'] == '5' ? 'Refuned' : ($item['order_status'] == '6' ? 'Returned' : ($item['order_status'] == '7' ? 'On Hold' : ($item['order_status'] == '8' ? 'Backordered' : ($item['order_status'] == '9' ? 'Payment Pending' : ($item['order_status'] == '10' ? 'Completed' : 'Pending'))))))))) ?>
-                                        </td>
-                                        <td class="vertical-middle">
-                                            <a href="orderdetail.php?id=<?=$item['Order_NO']?>" class="details-link" style="color: blue;"><i class="bi bi-arrow-right-circle"></i><span class="details-text">View Details</span></a>
-                                            <?php if ( $item['order_status'] != '2' && $item['order_status'] != '4') { ?>
-                                                <a href="#" class="cancel-link" data-order-id="<?= $item['order_id'] ?>" style="color: red;">
-                                                    <i class="bi bi-x-circle"></i><span class="cancel-text">Cancel</span>
-                                                </a> <?php } ?>
                                         </td>
                                     </tr>
                                 <?php

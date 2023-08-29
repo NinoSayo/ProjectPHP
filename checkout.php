@@ -1,8 +1,20 @@
 <?php
+
+
+
 include("Functions/userFunction.php");
 include("Functions/redirect.php");
 include("Functions/authenticate.php");
+
+$items = getCartItems();
+$numItems = mysqli_num_rows($items);
+if ($numItems === 0) {
+    redirect("cart.php", "You don't have any items in cart"); // Redirect to cart page if cart is empty
+}
+
+
 include("Includes/header.php");
+
 ?>
 
 <div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">

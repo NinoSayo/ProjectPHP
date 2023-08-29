@@ -14,16 +14,10 @@
         <?php if (isset($_SESSION['auth'])) {
         ?>
         <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-person-vcard-fill"></i></a>
-          <div class="dropdown-menu" aria-labelledby="dropdown04">
-          <a class="dropdown-item disabled" aria-disabled="true"><?= $_SESSION['auth_user']['username'] ?></a>
-              <hr>
-              <a class="dropdown-item" href="#">Regular link</a>
-              <a class="dropdown-item" href="myOrder.php">Your order</a>
-              <a class="dropdown-item" href="logout.php">Logout</a>
-          </div>
-        </li>        <?php
+        <li class="nav-item"><a href="myOrder.php" class="nav-link">Order History</a></li>
+        <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
+        <li class="nav-item"><a class="nav-link"><?= $_SESSION['auth_user']['username'] ?></a></li>
+        <?php
         } else { ?>
           <li class="nav-item">
             <a class="nav-link" href="register.php">Register</a>
