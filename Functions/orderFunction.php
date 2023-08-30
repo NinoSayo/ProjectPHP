@@ -15,6 +15,7 @@ if (isset($_SESSION['auth'])) {
         $city = mysqli_real_escape_string($con, $_POST['city']);
         $pin = mysqli_real_escape_string($con, $_POST['pin']);
         $payment_method = mysqli_real_escape_string($con,$_POST['payment_method']);
+        $payment_id = mysqli_real_escape_string($con, $_POST['payment_id']);
         $shipping_method = $_POST['shipping_method'];
         
         if (empty($firstname) || empty($lastname) || empty($phone) || empty($email) || empty($country) || empty($address) || empty($city) || empty($pin)) {
@@ -81,8 +82,8 @@ if (isset($_SESSION['auth'])) {
         $UniqueOrderNO = GenerateOrderNO($con);
 
         // Insert order into the database
-        $sql2 = "INSERT INTO orders(user_id, Order_NO ,shipping_firstname, shipping_lastname, shipping_phone, shipping_email, shipping_country, shipping_address, shipping_city, shipping_pin, shipping_method ,total_qty ,total_price, payment_method) 
-        VALUES ('$user_id', '$UniqueOrderNO' ,'$shipping_firstname', '$shipping_lastname', '$phone', '$email', '$country', '$address', '$city', '$pin', '$shipping_method' ,'$totalQTY' ,'$totalPrice', '$payment_method')";
+        $sql2 = "INSERT INTO orders(user_id, Order_NO ,shipping_firstname, shipping_lastname, shipping_phone, shipping_email, shipping_country, shipping_address, shipping_city, shipping_pin, shipping_method ,total_qty ,total_price, payment_method,payment_id) 
+        VALUES ('$user_id', '$UniqueOrderNO' ,'$shipping_firstname', '$shipping_lastname', '$phone', '$email', '$country', '$address', '$city', '$pin', '$shipping_method' ,'$totalQTY' ,'$totalPrice', '$payment_method','$payment_id')";
         $orderInsert = mysqli_query($con,$sql2);
 
         if ($orderInsert) {
@@ -117,11 +118,13 @@ if (isset($_SESSION['auth'])) {
             $sql3 = "DELETE FROM carts WHERE user_id = '$user_id' ";
             $deleteCart = mysqli_query($con,$sql3);
 
-            $_SESSION['message'] = "Order placed successfully";
-            header("Location: ../orderdetail.php?id=$OrderNO");
-            die();
-             } else {
-            
+            if($payment_method == "COD" ){
+                $_SESSION['message'] = "Order placed successfully";
+                header("Location: ../orderdetail.php?id=$OrderNO");
+                die();
+            }else {
+                echo 201;
+             } 
         }
 
     }

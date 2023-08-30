@@ -86,7 +86,7 @@ $data = mysqli_fetch_array($result);
                                 <?php if ($data['order_status'] <= 2) { ?>
                                     <form method="POST" action="cancelOrder.php">
                                         <input type="hidden" name="order_id" value="<?= $data['order_id'] ?>">
-                                        <button class="btn btn-danger" type="submit" name="cancel_order">Cancel</button>
+                                        <button class="btn btn-danger" type="submit" name="cancel_order">Cancel Order</button>
                                     </form>
                                 <?php } ?>
                             </div>
